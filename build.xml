@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="Kino" default="build" basedir=".">
+	<!-- Configure path to GWT SDK -->
+	<!-- <property name="gwt.sdk" location="D:/prgms/GWT2.0" /> -->
+
+	<property name="mod.name" value="Kinoshka" />
+	<property name="mod.fullname" value="com.ast.kinoshka.frontend.gwt.${mod.name}" />
+
+	<property name="target" location="target" />
+	<property name="release" location="../release" />
+	<property name="src" location="src/java" />
+	<property name="test" location="src/test" />
+
+	<!-- auto condition evaluation  -->
+	<!--<available file="db" property="db.available" />-->
+
+	<path id="project.class.path">
+		<pathelement location="${target}/classes}" />
+		<!-- Add any additional non-server libs (such as JUnit) -->
+		<fileset dir="${target}/lib" includes="**/*.jar" />
+	</path>
+
+	<!-- initialize resources -->
+	<target name="init" description="initializing">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${target}" />
+	</target>
+
+	<!-- prepare application database -->
+	<!--
+	<target name="db" unless="db.available" description="Copy database files">
+		<mkdir dir="${target}/db" />
+		<copy todir="${target}/db">
+			<fileset dir="db/storage" />
+		</copy>
+	</target>
+	-->
+
+	<!-- prepare source files -->
+	<target name="srcs" depends="init">
+		<mkdir dir="${target}/src" />
+
+		<copy todir="${target}/src">
+			<fileset dir="${src}" />
+		</copy>
+	</target>
+
+	<target name="libs" depends="init" description="Copy libs">
+		<mkdir dir="${target}/lib" />
+		<copy todir="${target}/lib" file="lib/gwt-servlet.jar" />
+		<copy todir="${target}/lib">
+			<fileset dir="lib">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="javac" depends="libs, srcs" description="Compile java source">
+		<mkdir dir="${target}/classes" />
+		<javac srcdir="${target}/src" includes="**" encoding="utf-8" destdir="${target}/classes" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="project.class.path" />
+		</javac>
+		<copy todir="${target}/classes">
+			<fileset dir="${target}/src" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="gwtc" depends="javac" description="GWT compile to JavaScript">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="${target}/src" />
+				<path refid="project.class.path" />
+			</classpath>
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx256M" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg value="${mod.fullname}" />
+			<arg value="-war" />
+			<arg value="${target}/web" />
+			<!-- <arg value="-compileReport"/> -->
+		</java>
+	</target>
+
+	<target name="devmode" depends="javac" description="Run development mode">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+			<classpath>
+				<pathelement location="${target}/src" />
+				<path refid="project.class.path" />
+			</classpath>
+			<jvmarg value="-Xmx256M" />
+			<arg value="-startupUrl" />
+			<arg value="${mod.name}.html" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg value="-war" />
+			<arg value="${target}/web" />
+			<arg value="${mod.fullname}" />
+		</java>
+	</target>
+
+	<target name="javac.tests" depends="javac" description="Compiles test code">
+		<javac srcdir="${test}" includes="**" encoding="utf-8" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
+			<classpath location="lib/log4j-1.2.9.jar" />
+			<classpath refid="project.class.path" />
+		</javac>
+	</target>
+
+	<target name="test.dev" depends="javac.tests" description="Run development mode tests">
+		<mkdir dir="${target}/reports/htmlunit.dev" />
+		<junit fork="yes" printsummary="yes" haltonfailure="yes">
+			<jvmarg line="-Xmx256m" />
+			<sysproperty key="gwt.args" value="-logLevel WARN" />
+			<sysproperty key="java.awt.headless" value="true" />
+			<classpath>
+				<pathelement location="${src}" />
+				<pathelement location="${test}" />
+				<path refid="project.class.path" />
+				<pathelement location="lib/log4j-1.2.9.jar" />
+			</classpath>
+			<batchtest todir="${target}/reports/htmlunit.dev">
+				<fileset dir="${test}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+			<formatter type="plain" />
+			<formatter type="xml" />
+		</junit>
+	</target>
+
+	<target name="test.prod" depends="javac.tests" description="Run production mode tests">
+		<mkdir dir="reports/htmlunit.prod" />
+		<junit fork="yes" printsummary="yes" haltonfailure="yes">
+			<jvmarg line="-Xmx256m" />
+			<sysproperty key="gwt.args" value="-prod -logLevel WARN -out www-test" />
+			<sysproperty key="java.awt.headless" value="true" />
+			<classpath>
+				<pathelement location="${src}" />
+				<pathelement location="${test}" />
+				<path refid="project.class.path" />
+				<pathelement location="lib/log4j-1.2.9.jar" />
+			</classpath>
+			<batchtest todir="reports/htmlunit.prod">
+				<fileset dir="${test}">
+					<include name="**/*Test.java" />
+				</fileset>
+			</batchtest>
+			<formatter type="plain" />
+			<formatter type="xml" />
+		</junit>
+	</target>
+
+	<target name="test" description="Run development and production mode tests">
+		<antcall target="test.dev" />
+		<antcall target="test.prod" />
+	</target>
+
+	<target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+	<target name="pack" depends="gwtc" description="Packaging">
+		<jar destfile="${target}/kinoshka.jar" basedir="${target}/classes" manifest="src/MANIFEST.MF" />
+	</target>
+
+	<target name="build" depends="pack" description="Build the project" />
+
+	<target name="relese" depends="build" description="Cleaning up excess data">
+		<mkdir dir="${release}" />
+		<mkdir dir="${release}/lib" />
+		<mkdir dir="${release}/web" />
+		<mkdir dir="${release}/db" />
+		<copy todir="${release}" file="run.bat"/>
+		<copy todir="${release}" file="logging.properties"/>
+		<copy todir="${release}" file="${target}/kinoshka.jar"/>
+		<copy todir="${release}/lib">
+			<fileset dir="lib">
+				<include name="**/*.jar" />
+				<exclude name="log4j*.jar" />
+				<exclude name="junit*.jar" />
+				<exclude name="easymock*.jar" />
+				<exclude name="gwt-dev.jar" />
+				<exclude name="gwt-user.jar" />
+				<exclude name="commons-logging*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${release}/web">
+			<fileset dir="${target}/web/${mod.name}"/>
+		</copy>
+		<copy todir="${release}/db">
+			<fileset dir="../db/storage" />
+		</copy>
+	</target>
+
+	<target name="clean" description="Cleans this project">
+		<delete dir="${target}" failonerror="false" />
+	</target>
+
+</project>

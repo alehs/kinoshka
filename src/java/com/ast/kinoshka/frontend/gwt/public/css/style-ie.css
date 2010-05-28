@@ -1,0 +1,29 @@
+﻿@charset "utf-8";
+
+/* Center page. */
+body {text-align: center;}
+#top {text-align: left;}
+.content_block {text-align: left;}
+.gwt-PopupPanel {text-align: left;}
+
+/* Instead of 'fixed' position */
+#top .master .mode {position: absolute;}
+DIV.msg {position: absolute;}
+DIV.loading {background:url("img/no-ie.gif") no-repeat center; position: absolute; height: 400px;}
+
+.list .gwt-TreeItem {width: 800px;}
+.list .gwt-TreeItem .gwt-Label:hover {background-color: red;}
+.list .gwt-TreeItem .rem-item .gwt-Label {float: left; width: 773px;}
+.list_panel .rem-item .gwt-Label {width: 93%;}
+
+.post .info {width: 720px;}
+.post.popup .info {width: 480px; margin-top: 0}
+
+.rem-item .rem-btn {float: none;}
+.edit-post .content BUTTON {float: left;}
+.edit-post .content .controls BUTTON {float: none;}
+
+.list DIV.gwt-Hyperlink {line-height:22px; font-weight: bold;}
+
+/* Fix popup opacity */
+.gwt-PopupPanelGlass {filter: alpha(opacity=20); BACKGROUND-COLOR: #000; opacity: 0.20; -moz-opacity: 0.20}

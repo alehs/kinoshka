@@ -1,0 +1,13 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:kino="urn:import:com.ast.kinoshka.frontend.gwt.client.widget">
+
+	<g:HTMLPanel>
+		<g:InlineHyperlink ui:field="back" styleName="back">&lt;&lt; весь список</g:InlineHyperlink>
+		<kino:Paging ui:field="paging"></kino:Paging>
+		<div class="cl"/>
+		<h1><g:Label ui:field="title"></g:Label></h1>
+		<g:FlowPanel ui:field="listHolder"></g:FlowPanel>
+	</g:HTMLPanel>
+</ui:UiBinder> 
