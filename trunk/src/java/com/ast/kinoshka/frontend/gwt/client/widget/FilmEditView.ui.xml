@@ -1,0 +1,118 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:kino="urn:import:com.ast.kinoshka.frontend.gwt.client.widget">
+
+	<g:HTMLPanel styleName="post edit-post">
+
+		<g:Image ui:field="image" styleName="flogo" url="images/covers/no-image.gif"></g:Image>
+
+		<div class="content">
+			<table cellpadding="2" cellspacing="0">
+				<tbody>
+					<tr>
+						<td>Название:</td>
+						<td>
+							<g:TextBox ui:field="name"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Оригинальное название:</td>
+						<td>
+							<g:TextBox ui:field="originalName"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Картинка:</td>
+						<td>
+<!--							<g:FormPanel ui:field="uploadForm" action="uploadService"/>-->
+							<g:FlowPanel ui:field="formPanel"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Год:</td>
+						<td>
+							<g:TextBox ui:field="year"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Жанр:</td>
+						<td>
+							<g:FlowPanel ui:field="genrePanel" styleName="list_panel"></g:FlowPanel>
+							<div class="add_panel">
+								<g:ListBox ui:field="genreList"></g:ListBox>
+								<g:Anchor ui:field="addGenre" title="Добавить жанр"><div class="add-btn"/></g:Anchor>
+								<g:Anchor ui:field="newGenre" title="Добавить новый жанр"><div class="new-btn"/></g:Anchor>
+								<div class="cl"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Режиссер:</td>
+						<td>
+							<g:FlowPanel ui:field="directorPanel" styleName="list_panel"></g:FlowPanel>
+							<div class="add_panel">
+								<g:ListBox ui:field="directorList"></g:ListBox>
+								<g:Anchor ui:field="addDirector" title="Добавить режиссера"><div class="add-btn"/></g:Anchor>
+								<g:Anchor ui:field="newDirector" title="Добавить нового режиссера"><div class="new-btn"/></g:Anchor>
+								<div class="cl"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>В ролях:</td>
+						<td>
+							<g:FlowPanel ui:field="actorPanel" styleName="list_panel"></g:FlowPanel>
+							<div class="add_panel">
+								<g:ListBox ui:field="actorList"></g:ListBox>
+								<g:Anchor ui:field="addActor" title="Добавить актера"><div class="add-btn"/></g:Anchor>
+								<g:Anchor ui:field="newActor" title="Добавить нового актера"><div class="new-btn"/></g:Anchor>
+								<div class="cl"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Страна:</td>
+						<td>
+							<g:FlowPanel ui:field="countryPanel" styleName="list_panel"></g:FlowPanel>
+							<div class="add_panel">
+								<g:ListBox ui:field="countryList"></g:ListBox>
+								<g:Anchor ui:field="addCountry" title="Добавить актера"><div class="add-btn"/></g:Anchor>
+								<div class="cl"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Коробка:</td>
+						<td>
+							<g:TextBox ui:field="box"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Диск:</td>
+						<td>
+							<g:TextBox ui:field="disk"></g:TextBox>
+						</td>
+					</tr>
+					<tr>
+						<td>Длительность:</td>
+						<td><g:TextBox ui:field="time"></g:TextBox></td>
+					</tr>
+					<tr>
+						<td>Пару слов:</td>
+						<td><g:TextArea ui:field="description"></g:TextArea></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<g:Button ui:field="delete">Удалить</g:Button>
+
+			<div class="controls">
+				<g:Button ui:field="save">Сохранить</g:Button>
+				<g:Button ui:field="cancel">Готово</g:Button>
+			</div>
+
+		</div>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

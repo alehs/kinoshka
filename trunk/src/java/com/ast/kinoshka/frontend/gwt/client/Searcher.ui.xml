@@ -1,0 +1,16 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:HTMLPanel>
+		<div id="searchBox">
+			<div>
+				<g:TextBox ui:field="searchInput" styleName="search_input" />
+				<g:Button ui:field="searchBtn" styleName="search_btn" />
+			</div>
+
+			<span class="example">например:&nbsp;
+				<a href="javascript:void(0)">Чак Норрис</a>
+			</span>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 
