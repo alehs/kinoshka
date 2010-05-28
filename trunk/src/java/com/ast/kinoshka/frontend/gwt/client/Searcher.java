@@ -67,6 +67,7 @@ public class Searcher extends Composite {
     if (!StringUtil.isEmpty(searchInput.getText()) && eventBus != null) {
       History.newItem("SEARCH", false);
       eventBus.fireEvent(new SearchEvent(searchInput.getText()));
+      searchInput.setText(null);
     }
   }
 

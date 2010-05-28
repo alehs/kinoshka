@@ -72,7 +72,7 @@
 
 	<select id="search" resultMap="filmGetMap" parameterType="String">
 		<include refid="selectFilm"/>
-		WHERE F.NAME like #{keyword} OR F.ORIGINAL_NAME like #{keyword}
+		WHERE UPPER(F.NAME) like UPPER(#{keyword}) OR UPPER(F.ORIGINAL_NAME) like UPPER(#{keyword})
 	</select>
 
 	<insert id="add" parameterType="Film"
