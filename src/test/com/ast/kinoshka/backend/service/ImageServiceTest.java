@@ -27,11 +27,11 @@ public class ImageServiceTest extends BaseServiceTest {
 
   @Test
   public void testSaveTmpImage() throws Exception {
-    service.saveTmpImage("HelloWorld".getBytes(), "file.txt");
+    String fileName = service.saveTmpImage("HelloWorld".getBytes(), "test/file.txt");
 
     File file = null;
     try {
-      file = new File(TMP_IMAGE_DIR + TMP_IMAGE_NAME);
+      file = new File(TMP_IMAGE_DIR + fileName);
       Assert.assertTrue("File not found", file.exists());
 
     } finally {
