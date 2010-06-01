@@ -8,6 +8,7 @@ import com.ast.kinoshka.backend.model.AttributeCategory;
 import com.ast.kinoshka.backend.model.Film;
 import com.ast.kinoshka.testcommon.BaseServiceTest;
 import com.ast.kinoshka.testcommon.ServiceTestUtil;
+import com.google.inject.internal.Lists;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -153,7 +154,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
 
       list = service.getAttributesFullInfo(AttributeCategory.YEAR);
       assertEquals(1, list.size());
-      assertEquals(Integer.valueOf(1), list.get(0).getItemsCount());
+      assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
@@ -189,7 +190,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
 
       list = service.getAttributesFullInfo(AttributeCategory.DISK);
       assertEquals(1, list.size());
-      assertEquals(Integer.valueOf(1), list.get(0).getItemsCount());
+      assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
@@ -211,14 +212,22 @@ public class AttributeDataServiceTest extends BaseServiceTest {
   @Test
   public void testGetBoxes() {
     FilmDataService filmService = injector.getInstance(FilmDataService.class);
-    Film film1 = ServiceTestUtil.createFilm(FILM_NAME);
-    film1.setBox(1111);
-    Film film2 = ServiceTestUtil.createFilm(FILM_NAME);
-    film2.setBox(2222);
+    List<Film> films = Lists.newArrayList();
+
+    Film film = ServiceTestUtil.createFilm(FILM_NAME);
+    film.setBox(1111);
+    films.add(film);
+    film = ServiceTestUtil.createFilm(FILM_NAME);
+    film.setBox(2222);
+    films.add(film);
+    film = ServiceTestUtil.createFilm(FILM_NAME);
+    film.setBox(2222);
+    films.add(film);
 
     try {
-      filmService.addFilm(film1);
-      filmService.addFilm(film2);
+      for (Film f: films) {
+        filmService.addFilm(f);
+      }
 
       List<Attribute> list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(2, list.size());
@@ -229,7 +238,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
-      assertEquals(Integer.valueOf(1), list.get(1).getItemsCount());
+      assertEquals(Integer.valueOf(2), list.get(1).getItemsCount());
       assertEquals(Integer.valueOf(2222), list.get(1).getId());
       assertEquals(list.get(1).getId().toString(), list.get(1).getName());
 
@@ -237,8 +246,11 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       assertEquals(0, list.size());
 
     } finally {
-      if (film1 != null) {filmService.deleteFilm(film1.getId());}
-      if (film2 != null) {filmService.deleteFilm(film2.getId());}
+      for (Film f : films) {
+        if (film != null) {
+          filmService.deleteFilm(f.getId());
+        }
+      }
     }
   }
 
@@ -259,7 +271,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
 
       list = service.getAttributesFullInfo(AttributeCategory.BOX);
       assertEquals(1, list.size());
-      assertEquals(Integer.valueOf(1), list.get(0).getItemsCount());
+      assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(2222), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
@@ -297,9 +309,9 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       assertEquals(1, list.size());
 
       list = service.getAttributes(AttributeCategory.YEAR);
-      assertEquals(2, list.size());
+      assertEquals(1, list.size());
       list = service.getAttributesFullInfo(AttributeCategory.YEAR);
-      assertEquals(2, list.size());
+      assertEquals(1, list.size());
 
     } finally {
       if (film1 != null) {filmService.deleteFilm(film1.getId());}
