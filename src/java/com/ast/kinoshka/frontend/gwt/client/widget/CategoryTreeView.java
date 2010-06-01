@@ -17,9 +17,11 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.logical.shared.OpenEvent;
 import com.google.gwt.event.logical.shared.OpenHandler;
 import com.google.gwt.event.shared.HandlerManager;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.TreeItem;
+import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 
 import java.util.ArrayList;
 
@@ -175,12 +177,21 @@ public class CategoryTreeView extends AbstractContentView {
       film.getLabel().addMouseOverHandler(new MouseOverHandler() {
         @Override
         public void onMouseOver(MouseOverEvent event) {
-          int left = film.getLabel().getAbsoluteLeft() + 50;
-          int top = film.getLabel().getAbsoluteTop() + 14;
+          final int left = film.getLabel().getAbsoluteLeft() + 50;
+          final int top = film.getLabel().getAbsoluteTop() + 14;
 
           popup.hide();
           popup.setFilmInfoToDysplay(film.getInfo());
-          popup.setPopupPosition(left, top);
+          popup.setPopupPositionAndShow(new PositionCallback() {
+            @Override
+            public void setPosition(int offsetWidth, int offsetHeight) {
+              int realTop = top;
+              if (top + offsetHeight > Window.getClientHeight() + Window.getScrollTop()) {
+                realTop -= offsetHeight;
+              }
+              popup.setPopupPosition(left, realTop);
+            }
+          });
           popup.show();
         }
       });
