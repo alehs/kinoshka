@@ -69,7 +69,7 @@ ul.menu li a:hover span{color: #f60;}
 .content_block div.wrapper h1 div {padding-bottom: 20px; border-bottom: 2px solid #9ac;}
 .content_block a.back {float: left;}
 .content_block .paging {height: 15px; color: #666; text-align: right; float: right;}
-.content_block .paging a {margin: 0 8px;}
+.content_block .paging a {margin: 0 2px;}
 
 .tab { border-bottom: 1px dotted; line-height:20px; font-weight: bold;}
 .sec { background-color : #FAEBD7; }
