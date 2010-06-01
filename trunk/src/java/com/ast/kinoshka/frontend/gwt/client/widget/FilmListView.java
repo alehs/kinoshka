@@ -45,7 +45,7 @@ public class FilmListView extends AbstractContentView {
     super(eventBus);
     initWidget(uiBinder.createAndBindUi(this));
 
-    paging.addOnPageChangeHandler(new PageChangeHandler() {
+    paging.setOnPageChangeHandler(new PageChangeHandler() {
       @Override
       public void pageChanged(PagingConfig config) {
         doLoad(config);
@@ -61,14 +61,9 @@ public class FilmListView extends AbstractContentView {
     title.setText(null);
     title.setVisible(false);
 
-    if (category == Category.ALL) {
-      back.setVisible(false);
-    } else {
-      back.setVisible(true);
-    }
     back.setTargetHistoryToken(category.name());
 
-    doLoad(new PagingConfig());
+    doLoad(paging.getPagingConfig());
   }
 
   /**
@@ -81,6 +76,7 @@ public class FilmListView extends AbstractContentView {
     listHolder.clear();
 
     if (Category.ALL == currentCategory) {
+      back.setVisible(false);
       dataService.getFilms(config, new PageReceivingCallback(eventBus) {
         @Override
         public void processResult(PagingResult result) {
@@ -89,6 +85,7 @@ public class FilmListView extends AbstractContentView {
         };
       });
     } else {
+      back.setVisible(true);
       dataService.getFilmsByCategory(currentCategory, currentCategoryItem,
           new ListReceivingCallback<FilmInfo>(eventBus) {
           @Override
