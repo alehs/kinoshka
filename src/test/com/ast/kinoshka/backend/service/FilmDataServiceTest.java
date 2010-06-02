@@ -254,32 +254,42 @@ public class FilmDataServiceTest extends BaseServiceTest {
     List<Film> newFilms = Lists.newArrayList();
 
     try {
-      List<Film> films = service.getFilms(0, 2);
+      List<Film> films = service.getFilms(0, 2, newFilms.size());
       assertEquals(0, films.size());
 
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2000, 10, 0)));
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2004, 10, 0)));
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2000, 12, 0)));
 
-      films = service.getFilms(0, 2);
+      films = service.getFilms(0, 2, newFilms.size());
       assertEquals(2, films.size());
-      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
+      assertEquals(newFilms.get(2).getId(), films.get(0).getId());
       assertEquals(newFilms.get(1).getId(), films.get(1).getId());
 
-      films = service.getFilms(1, 2);
+      films = service.getFilms(1, 2, newFilms.size());
       assertEquals(2, films.size());
       assertEquals(newFilms.get(1).getId(), films.get(0).getId());
-      assertEquals(newFilms.get(2).getId(), films.get(1).getId());
+      assertEquals(newFilms.get(0).getId(), films.get(1).getId());
 
-      films = service.getFilms(1, 1);
+      films = service.getFilms(1, 1, newFilms.size());
       assertEquals(1, films.size());
       assertEquals(newFilms.get(1).getId(), films.get(0).getId());
 
-      films = service.getFilms(0, 10);
+      films = service.getFilms(0, 10, newFilms.size());
       assertEquals(3, films.size());
-      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
+      assertEquals(newFilms.get(2).getId(), films.get(0).getId());
       assertEquals(newFilms.get(1).getId(), films.get(1).getId());
-      assertEquals(newFilms.get(2).getId(), films.get(2).getId());
+      assertEquals(newFilms.get(0).getId(), films.get(2).getId());
+
+      films = service.getFilms(2, 2, newFilms.size());
+      assertEquals(1, films.size());
+      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
+
+      films = service.getFilms(2, 0, newFilms.size());
+      assertEquals(0, films.size());
+
+      films = service.getFilms(3, 2, newFilms.size());
+      assertEquals(0, films.size());
 
     } finally {
       for (Film film : newFilms) {

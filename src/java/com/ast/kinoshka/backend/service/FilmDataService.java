@@ -19,11 +19,17 @@ public interface FilmDataService {
 
   /**
    * Returns page of films.
+   * 
    * @param offset page start
    * @param limit page limit
+   * @param total
+   *          total number of films to get page from. This is workaround to get
+   *          film list in descending order as derby does not support ORDER BY
+   *          in subqueries and over() function and LIMIT keyword
+   * 
    * @return page of films
    */
-  List<Film> getFilms(int offset, int limit);
+  List<Film> getFilms(int offset, int limit, int total);
 
   /**
    * Returns list of films with specified attribute.

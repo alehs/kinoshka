@@ -107,12 +107,15 @@ public class FilmDataServiceImpl implements FilmDataService {
    * {@inheritDoc}
    */
   @Override
-  public List<Film> getFilms(int offset, int limit) {
+  public List<Film> getFilms(int offset, int limit, int total) {
     List<Film> result = null;
     SqlSession session = factory.openSession();
     try {
       FilmMapper mapper = session.getMapper(FilmMapper.class);
-      result = mapper.getPage(new PageConfig(offset, offset + limit + 1));
+      // This is workaround to get
+      // film list in descending order as derby does not support both ORDER BY
+      // in subqueries and over() function and LIMIT keyword. 
+      result = mapper.getPage(new PageConfig(total - (offset + limit), total - offset + 1));
     } finally {
       session.close();
     }
