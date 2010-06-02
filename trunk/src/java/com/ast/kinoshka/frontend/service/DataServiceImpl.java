@@ -35,8 +35,8 @@ public class DataServiceImpl extends BaseServiceServlet implements DataService {
    */
   @Override
   public PagingResult getFilms(PagingConfig config) {
-    List<Film> films = filmService.getFilms(config.getOffset(), config.getLimit());
     int count = filmService.getFilmsCount();
+    List<Film> films = filmService.getFilms(config.getOffset(), config.getLimit(), count);
     return new PagingResult(FilmDataConverter.toModel(films), config.getOffset(), count);
   }
 

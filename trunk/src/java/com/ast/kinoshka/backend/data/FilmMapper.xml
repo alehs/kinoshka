@@ -62,7 +62,7 @@
 		WHERE F.ID IN (
 			SELECT T.ID FROM PAGED_FILMS T
 			WHERE T.NUM &gt; #{minEdge} AND T.NUM &lt; #{maxEdge}
-		)
+		) ORDER BY F.ID DESC
 	</select>
 
 	<select id="getById" resultMap="filmGetMap" parameterType="Integer">
