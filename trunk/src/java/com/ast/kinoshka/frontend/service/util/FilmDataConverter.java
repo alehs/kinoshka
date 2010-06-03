@@ -42,7 +42,6 @@ public class FilmDataConverter {
     public Film apply(FilmInfo attr) {
       Film model = new Film(attr.getId(), attr.getName());
       model.setOriginalName(attr.getOriginalName());
-      model.setDescription(attr.getDescription());
       model.setImageName(attr.getImageName());
       model.setBox(attr.getBox());
       model.setYear(attr.getYear());
@@ -52,6 +51,11 @@ public class FilmDataConverter {
       model.setDirectors(AttributeDataConverter.fromModel(attr.getDirectors()));
       model.setGenres(AttributeDataConverter.fromModel(attr.getGenres()));
       model.setCountries(AttributeDataConverter.fromModel(attr.getCountries()));
+      if (attr.getDescription() != null && attr.getDescription().length() > 128) {
+        model.setDescription(attr.getDescription().substring(0, 127));
+      } else {
+        model.setDescription(attr.getDescription());
+      }
       return model;
     }
   };
