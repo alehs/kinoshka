@@ -13,7 +13,7 @@ import java.util.List;
 public interface DirectorMapper extends AttributeMapper {
 
   @Override
-  @Select("SELECT * FROM DIRECTORS")
+  @Select("SELECT * FROM DIRECTORS ORDER BY NAME ASC")
   List<Attribute> getList();
 
   @Override

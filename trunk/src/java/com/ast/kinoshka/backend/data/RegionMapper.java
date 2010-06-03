@@ -13,7 +13,7 @@ import java.util.List;
 public interface RegionMapper extends AttributeMapper {
 
   @Override
-  @Select("SELECT * FROM REGIONS")
+  @Select("SELECT * FROM REGIONS ORDER BY NAME ASC")
   List<Attribute> getList();
 
   @Override

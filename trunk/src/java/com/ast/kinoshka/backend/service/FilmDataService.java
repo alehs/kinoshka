@@ -18,8 +18,8 @@ public interface FilmDataService {
   int getFilmsCount();
 
   /**
-   * Returns page of films.
-   * 
+   * Returns page of films in descending order.
+   *
    * @param offset page start
    * @param limit page limit
    * @param total

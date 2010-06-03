@@ -17,7 +17,7 @@ import java.util.List;
 public interface GenreMapper extends AttributeMapper {
 
   @Override
-  @Select("SELECT * FROM GENRES")
+  @Select("SELECT * FROM GENRES ORDER BY NAME ASC")
   List<Attribute> getList();
 
   @Override
