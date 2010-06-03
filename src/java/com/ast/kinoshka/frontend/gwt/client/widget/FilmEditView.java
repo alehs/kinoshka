@@ -402,11 +402,11 @@ public class FilmEditView extends Composite {
 
     if (validateForm()) {
       eventBus.fireEvent(new LoadingEvent());
+      film.setUploaded(false);
       dataService.saveFilm(film, new DataReceivingCallback<Integer>(eventBus) {
         @Override
         public void processResult(Integer result) {
           FilmEditView.this.film.setId(result);
-          FilmEditView.this.film.setUploaded(false);
           FilmEditView.this.delete.setEnabled(true);
           FilmEditView.this.eventBus.fireEvent(MessageEvent.info(messages.saved(film.getName())));
         }
@@ -434,6 +434,7 @@ public class FilmEditView extends Composite {
       delete.setEnabled(false);
     } else {
       delete.setEnabled(true);
+      film.setUploaded(false);
     }
     loadDictionaries();
     reattachUploadForm();

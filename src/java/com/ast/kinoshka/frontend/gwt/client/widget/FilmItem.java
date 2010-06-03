@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.InlineHTML;
 import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.InlineLabel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.ArrayList;
@@ -84,7 +85,6 @@ public class FilmItem extends Composite {
         FilmItem.this.eventBus.fireEvent(new FilmEditEvent(film));
       }
     });
-
   }
 
   /**
@@ -106,26 +106,15 @@ public class FilmItem extends Composite {
     originalName.setText(film.getOriginalName());
     description.setText(film.getDescription());
 
-    if (film.getTime() != null) {
-      time.setText(film.getTime().toString());
-    }
-    if (film.getBox() != null) {
-      setLink(box, film.getBox().toString(), ResourcesUtil.target(Category.BOX, film.getBox()
-          .toString()));
-    }
-    if (film.getDisk() != null) {
-      setLink(disc, film.getDisk().toString(), ResourcesUtil.target(Category.DISK, film.getDisk()
-          .toString()));
-    }
-    if (film.getYear() != null) {
-      setLink(year, film.getYear().toString(), ResourcesUtil.target(Category.YEAR, film.getYear()
-          .toString()));
-    }
+    setNumeric(time, film.getTime());
+
+    setNumericLink(box, film.getBox(), Category.BOX);
+    setNumericLink(disc, film.getDisk(), Category.DISK);
+    setNumericLink(year, film.getYear(), Category.YEAR);
 
     setLinkList(actorPanel, film.getActors(), Category.ACTOR);
     setLinkList(genreePanel, film.getGenres(), Category.GENRE);
     setLinkList(directorPanel, film.getDirectors(), Category.DIRECTOR);
-
     setImageList(countreePanel, film.getCountries(), Category.COUNTRY);
   }
 
@@ -139,9 +128,22 @@ public class FilmItem extends Composite {
     countreePanel.clear();
   }
 
-  private final void setLink(final Hyperlink item, final String text, final String target) {
-    item.setText(text);
-    item.setTargetHistoryToken(target);
+  private final void setNumeric(final Label item, final Integer number) {
+    if (number != null) {
+      item.setText(number.toString());
+    } else {
+      item.setText(null);
+    }
+  }
+
+  private final void setNumericLink(final Hyperlink item, final Integer number, final Category category) {
+    if (number != null) {
+      String text = number.toString();
+      item.setText(text);
+      item.setTargetHistoryToken(ResourcesUtil.target(category, text));
+    } else {
+      item.setText(null);
+    }
   }
 
   private final void setLinkList(final FlowPanel holder, final ArrayList<FilmAttributeInfo> items,

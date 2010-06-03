@@ -13,13 +13,13 @@
 					<tr>
 						<td>Название:</td>
 						<td>
-							<g:TextBox ui:field="name"></g:TextBox>
+							<g:TextBox ui:field="name" maxLength="128"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
 						<td>Оригинальное название:</td>
 						<td>
-							<g:TextBox ui:field="originalName"></g:TextBox>
+							<g:TextBox ui:field="originalName" maxLength="128"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -32,7 +32,7 @@
 					<tr>
 						<td>Год:</td>
 						<td>
-							<g:TextBox ui:field="year"></g:TextBox>
+							<g:TextBox ui:field="year" maxLength="128"></g:TextBox>
 						</td>
 					</tr>
 					<tr>
@@ -85,18 +85,18 @@
 					<tr>
 						<td>Коробка:</td>
 						<td>
-							<g:TextBox ui:field="box"></g:TextBox>
+							<g:TextBox ui:field="box" maxLength="128"/>
 						</td>
 					</tr>
 					<tr>
 						<td>Диск:</td>
 						<td>
-							<g:TextBox ui:field="disk"></g:TextBox>
+							<g:TextBox ui:field="disk" maxLength="128"/>
 						</td>
 					</tr>
 					<tr>
 						<td>Длительность:</td>
-						<td><g:TextBox ui:field="time"></g:TextBox></td>
+						<td><g:TextBox ui:field="time" maxLength="128"/></td>
 					</tr>
 					<tr>
 						<td>Пару слов:</td>
