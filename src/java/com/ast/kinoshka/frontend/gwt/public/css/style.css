@@ -104,7 +104,7 @@ ul.menu li a:hover span{color: #f60;}
 .post .edit a div {opacity: 0.5;}
 .post .edit a div:hover {opacity: 1;}
 
-.post .desc {float:right; margin-top:-15px; text-align:right; width:400px; overflow: hidden}
+.post .desc {float:right; margin-top:-15px; text-align:right; width:500px; height: 15px; overflow: hidden}
 
 /*  Table */
 td { color:#000; font-family:tahoma,verdana; font-size:11px; vertical-align: top; }
