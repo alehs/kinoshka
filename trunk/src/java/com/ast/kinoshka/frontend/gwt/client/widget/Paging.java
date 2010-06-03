@@ -52,7 +52,9 @@ public class Paging extends Composite {
   @UiHandler("lastPage")
   void onLastClick(ClickEvent event) {
     if (handler != null && olderButton.isEnabled()) {
-      handler.pageChanged(new PagingConfig((total/PAGE_SIZE)*PAGE_SIZE, PAGE_SIZE));
+      int extra = total % PAGE_SIZE;
+      if (extra == 0) {extra = PAGE_SIZE; }
+      handler.pageChanged(new PagingConfig(total - extra, PAGE_SIZE));
     }
   }
 
