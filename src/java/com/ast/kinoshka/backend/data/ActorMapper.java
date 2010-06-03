@@ -26,7 +26,7 @@ public interface ActorMapper extends AttributeMapper {
   List<Attribute> getAdvancedList();
 
   @Override
-  @Select("SELECT * FROM ACTORS")
+  @Select("SELECT * FROM ACTORS ORDER BY NAME ASC")
   List<Attribute> getList();
 
   @Override

@@ -17,7 +17,7 @@
 	<select id="getAdvancedList" resultMap="advancedAttributeMap">
 		select REGIONS.*, (select count(*) from FILM_REGION where REGION_ID =
 		REGIONS.ID) as items_count
-		from REGIONS
+		from REGIONS ORDER BY NAME ASC
 	</select>
 
 	<select id="getFilms" resultMap="filmGetMap" parameterType="Integer">

@@ -17,7 +17,7 @@
 	<select id="getAdvancedList" resultMap="advancedAttributeMap">
 		select ACTORS.*, (select count(*) from FILM_ACTOR where ACTOR_ID =
 		ACTORS.ID) as items_count
-		from ACTORS
+		from ACTORS ORDER BY NAME ASC
 	</select>
 
 	<select id="getFilms" resultMap="filmGetMap" parameterType="Integer">

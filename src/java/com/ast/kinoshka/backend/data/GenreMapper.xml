@@ -18,7 +18,7 @@
 	<select id="getAdvancedList" resultMap="advancedAttributeMap">
 		select GENRES.*, (select count(*) from FILM_GENRE where GENRE_ID =
 		GENRES.ID) as items_count
-		from GENRES
+		from GENRES ORDER BY NAME ASC
 	</select>
 
 	<select id="getFilms" resultMap="filmGetMap" parameterType="Integer">
