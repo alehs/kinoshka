@@ -72,7 +72,7 @@ public class FileUtil {
     }
     return result;
   }
-  
+
   /**
    * Moves file with specified name to specified directory.
    * @param toCopy file to copy

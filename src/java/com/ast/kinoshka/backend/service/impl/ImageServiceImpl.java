@@ -36,8 +36,9 @@ public class ImageServiceImpl implements ImageService {
 
     if (tmpfile != null) {
       try {
+        String tmpFileName = tmpfile.getName();
         FileUtil.moveFileToDir(tmpfile, imgDir);
-        fileName = tmpfile.getName();
+        fileName = tmpFileName;
       } catch (IOException e) {
         throw new ServiceException("Cannot copy tmp image file to target dir.", e);
       }
