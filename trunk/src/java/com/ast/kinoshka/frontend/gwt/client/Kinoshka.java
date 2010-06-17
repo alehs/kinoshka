@@ -2,7 +2,6 @@ package com.ast.kinoshka.frontend.gwt.client;
 
 import com.ast.kinoshka.frontend.gwt.client.widget.Messenger;
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Random;
@@ -26,8 +25,7 @@ public class Kinoshka implements EntryPoint {
     RootPanel.get().add(new Content(eventBus));
 
     History.addValueChangeHandler(new HistoryChangeController(eventBus));
-
-    GWT.log("Started!!", null);
+    History.fireCurrentHistoryState();
   }
 
   private String getRandomStyle() {
