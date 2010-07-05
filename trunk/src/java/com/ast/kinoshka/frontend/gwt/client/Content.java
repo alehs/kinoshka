@@ -86,8 +86,7 @@ public class Content extends Composite {
     categoryTree = new CategoryTreeView(eventBus);
     searchResults = new SearchResultsView(eventBus);
 
-    filmsList.load(Category.ALL, null);
-    setBody(filmsList);
+    setBody(filmsList); // set default body content
     setLoading(true);
 
     eventBus.addHandler(CategoryChangeEvent.TYPE, new CategoryChangeHandler() {
