@@ -177,14 +177,16 @@ div.search-results {background:url("img/search.gif") no-repeat 0 0; min-height: 
 div.search-results .search-list {margin-left: 50px; font-size: 14px; font-weight: bold;}
 div.search-results .search-list .gwt-Label {margin: 2px 0}
 
+
+body {background-position: 0 0;background-attachment: fixed;background-color: transparent;}
 /** Backgrounds: up to 10 backgrounds are allowed in system. */
-body.bg0 {background:url("../images/backgrounds/bg-0.jpg") fixed 0 0 transparent;}
-body.bg1 {background:url("../images/backgrounds/bg-1.jpg") fixed 0 0 transparent;}
-body.bg2 {background:url("../images/backgrounds/bg-2.jpg") fixed 0 0 transparent;}
-body.bg3 {background:url("../images/backgrounds/bg-3.jpg") fixed 0 0 transparent;}
-body.bg4 {background:url("../images/backgrounds/bg-4.jpg") fixed 0 0 transparent;}
-body.bg5 {background:url("../images/backgrounds/bg-5.jpg") fixed 0 0 transparent;}
-body.bg6 {background:url("../images/backgrounds/bg-6.jpg") fixed 0 0 transparent;}
-body.bg7 {background:url("../images/backgrounds/bg-7.jpg") fixed 0 0 transparent;}
-body.bg8 {background:url("../images/backgrounds/bg-8.jpg") fixed 0 0 transparent;}
-body.bg9 {background:url("../images/backgrounds/bg-9.jpg") fixed 0 0 transparent;}
+body.bg0 {background-image:url("../images/backgrounds/bg-0.jpg")}
+body.bg1 {background-image:url("../images/backgrounds/bg-1.jpg")}
+body.bg2 {background-image:url("../images/backgrounds/bg-2.jpg")}
+body.bg3 {background-image:url("../images/backgrounds/bg-3.jpg")}
+body.bg4 {background-image:url("../images/backgrounds/bg-4.jpg")}
+body.bg5 {background-image:url("../images/backgrounds/bg-5.jpg")}
+body.bg6 {background-image:url("../images/backgrounds/bg-6.jpg")}
+body.bg7 {background-image:url("../images/backgrounds/bg-7.jpg")}
+body.bg8 {background-image:url("../images/backgrounds/bg-8.jpg")}
+body.bg9 {background-image:url("../images/backgrounds/bg-9.jpg")}
