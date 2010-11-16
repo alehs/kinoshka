@@ -6,7 +6,7 @@ public abstract class CommonTestUtil {
   public static final String ARG_WEB = "-" + ARG_WEB_NAME + "=" + ARG_WEB_VAL;
 
   public static final String ARG_DB_NAME = "db";
-  public static final String ARG_DB_VAL = "target";
+  public static final String ARG_DB_VAL = "test/db";
   public static final String ARG_DB = "-" + ARG_DB_NAME + "=" + ARG_DB_VAL;
 
   public static final String ARG_PORT_NAME = "port";
