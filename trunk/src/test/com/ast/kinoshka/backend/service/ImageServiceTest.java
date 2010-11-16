@@ -16,13 +16,15 @@ import junit.framework.Assert;
 public class ImageServiceTest extends BaseServiceTest {
 
   private static final String TMP_IMAGE_NAME = "tmp-image.txt";
-  private static final String TMP_IMAGE_DIR = "test/web/images/tmp/";
-  private static final String COVER_IMAGE_DIR = "test/web/images/covers/";
+  private static final String TMP_IMAGE_DIR = BaseServiceTest.WEB_CONTEXT + "/images/tmp/";
+  private static final String COVER_IMAGE_DIR = BaseServiceTest.WEB_CONTEXT + "/images/covers/";
   private ImageService service;
 
   @Before
   public void setUp() {
     this.service = injector.getInstance(ImageService.class);
+	new File(TMP_IMAGE_DIR).mkdirs();
+    new File(COVER_IMAGE_DIR).mkdirs();
   }
 
   @Test
