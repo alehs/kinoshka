@@ -3,7 +3,7 @@
 	<!-- Configure path to GWT SDK -->
 	<!-- <property name="gwt.sdk" location="D:/prgms/GWT2.0" /> -->
 
-	<property name="app.version" value="1.4" />
+	<property name="app.version" value="1.4.1" />
 	<property name="mod.name" value="Kinoshka" />
 	<property name="mod.fullname" value="com.ast.kinoshka.frontend.gwt.${mod.name}" />
 
