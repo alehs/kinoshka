@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ast.kinoshka.backend.data.FilmMapper">
+	<cache/>
+
+	<resultMap id="filmGetMap" type="Film">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME" />
+		<result property="originalName" column="ORIGINAL_NAME" />
+		<result property="year" column="FILM_YEAR" />
+		<result property="time" column="FILM_TIME" />
+		<result property="box" column="BOX" />
+		<result property="disk" column="DISK" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="imageName" column="IMAGE_NAME" />
+
+		<collection property="genres" ofType="Attribute">
+			<id property="id" column="genre_id" />
+			<result property="name" column="genre_name" />
+		</collection>
+		<collection property="actors" ofType="Attribute">
+			<id property="id" column="actor_id" />
+			<result property="name" column="actor_name" />
+		</collection>
+		<collection property="directors" ofType="Attribute">
+			<id property="id" column="director_id" />
+			<result property="name" column="director_name" />
+		</collection>
+		<collection property="countries" ofType="Attribute">
+			<id property="id" column="region_id" />
+			<result property="name" column="region_name" />
+			<result property="param1" column="region_short_name" />
+		</collection>
+	</resultMap>
+
+	<sql id="selectFilm">
+		SELECT F.*,
+			G.id AS genre_id,
+			G.name AS genre_name,
+			A.id AS actor_id,
+			A.name AS actor_name,
+			D.id AS director_id,
+			D.name AS director_name,
+			R.id AS region_id,
+			R.name AS region_name,
+			R.short AS region_short_name
+		from FILMS F
+			left join FILM_GENRE FG ON F.id = FG.FILM_ID left join GENRES G ON FG.GENRE_ID = G.id
+			left join FILM_ACTOR FA ON F.id = FA.FILM_ID left join ACTORS A ON FA.ACTOR_ID = A.id
+			left join FILM_DIRECTOR FD ON F.id = FD.FILM_ID left join DIRECTORS D ON FD.DIRECTOR_ID = D.id
+			left join FILM_REGION FR ON F.id = FR.FILM_ID left join REGIONS R ON FR.REGION_ID = R.id
+	</sql>
+
+	<select id="getAll" resultMap="filmGetMap">
+		<include refid="selectFilm"/>
+	</select>
+
+	<select id="getPage" resultMap="filmGetMap" parameterType="int">
+		<include refid="selectFilm"/>
+		WHERE F.ID IN (
+			SELECT T.ID FROM PAGED_FILMS T
+			WHERE T.NUM &gt; #{minEdge} AND T.NUM &lt; #{maxEdge}
+		) ORDER BY F.ID DESC
+	</select>
+
+	<select id="getById" resultMap="filmGetMap" parameterType="Integer">
+		<include refid="selectFilm"/>
+		where F.ID = #{filmId}
+	</select>
+
+	<select id="search" resultMap="filmGetMap" parameterType="String">
+		<include refid="selectFilm"/>
+		WHERE UPPER(F.NAME) like UPPER(#{keyword}) OR UPPER(F.ORIGINAL_NAME) like UPPER(#{keyword})
+	</select>
+
+	<insert id="add" parameterType="Film"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into FILMS(NAME, ORIGINAL_NAME, DESCRIPTION, IMAGE_NAME, FILM_YEAR, FILM_TIME, BOX, DISK)
+		values (#{name}, #{originalName:VARCHAR}, #{description:VARCHAR}, #{imageName:VARCHAR}, #{year:INTEGER}, #{time:INTEGER}, #{box:INTEGER}, #{disk:INTEGER})
+	</insert>
+
+	<update id="update" parameterType="Film">
+		update FILMS set
+			NAME = #{name},
+			ORIGINAL_NAME = #{originalName, jdbcType=VARCHAR},
+			DESCRIPTION = #{description, jdbcType=VARCHAR},
+			IMAGE_NAME = #{imageName, jdbcType=VARCHAR},
+			FILM_YEAR = #{year, jdbcType=INTEGER},
+			FILM_TIME = #{time, jdbcType=INTEGER},
+			BOX = #{box, jdbcType=INTEGER},
+			DISK = #{disk, jdbcType=INTEGER} 
+		where ID = #{id}
+	</update>
+
+<!--	where F.ID in (select FILM_ID from FILM_GENRE where GENRE_ID = 3)-->
+</mapper>

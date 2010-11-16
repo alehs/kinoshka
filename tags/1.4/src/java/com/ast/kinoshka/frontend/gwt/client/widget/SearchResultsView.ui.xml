@@ -1,0 +1,9 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<g:HTMLPanel styleName="search-results">
+		<h1>Результаты поиска для "<g:InlineLabel ui:field="keyword"/>":</h1>
+		<g:FlowPanel styleName="search-list" ui:field="listHolder"/>
+		<g:HTMLPanel ui:field="empty" visible="false" styleName="empty"><p>ничего не найдено</p></g:HTMLPanel>
+	</g:HTMLPanel>
+</ui:UiBinder>

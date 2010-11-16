@@ -1,0 +1,190 @@
+﻿@charset "utf-8";
+
+html {min-width: 1000px; width: 100%}
+body { background:#CCC; color:#333; font: 12px tahoma; margin: 0}
+
+a {color:#000; text-decoration:none;}
+a:hover {color:#f60;}
+
+
+/*
+	Top box
+*/
+#top {position: relative; z-index: 20; height: 250px; width: 850px; margin: 0 auto}
+#top .master {position: relative; top: 150px; z-index: 20;}
+#top .master .mode {margin-top: -10px;}
+
+.cl {clear: both;}
+.smalltext {color: #ccc; overflow: hidden; font: 9px arial;}
+
+.png {background: url(img/380.png); height: 87px;}
+.png .menu span {color: #fff}
+.png span.logo {
+	display: block;
+	height: 48px;
+	left: 10px;
+	top: 24px;
+	width: 218px;
+	position: absolute;
+	background: url(img/logo.png);
+}
+
+.add-film {left: 170px;position: absolute;top: 57px;}
+
+.new-btn {background: url(img/add_icon.gif) no-repeat; height: 22px; width: 22px; cursor: pointer}
+.add-btn {background: url(img/button_add.png) no-repeat; height: 18px; width: 18px; cursor: pointer;}
+.rem-btn {background: url(img/button_rem.png) no-repeat; height: 18px; width: 18px; cursor: pointer;}
+.edit-btn { background: url(img/add_icon.gif) no-repeat; height: 22px; width: 22px; cursor: pointer;}
+
+/*
+	Menu navigation
+*/
+#ul_menu_top {position: absolute; top: 0; z-index: 2}
+ul.menu {width: 620px; height: 20px; font-size: 11px; font-weight: bold; list-style: none; margin: 0; margin-left: 230px;}
+ul.menu li {list-style: none; float: left; margin: 0; padding: 0}
+ul.menu span {border-left: 2px #f60 solid; display: block; padding: 6px 25px 0 7px}
+ul.menu li .act span {color: #f60;}
+ul.menu li a:hover span{color: #f60;}
+
+/* Search Form  */
+#searchBox {position: absolute; font-size: 10px; top: 47px; left: 408px; color:#fff;}
+#searchBox  div { width:375px; height:22px;}
+#searchBox .search_btn {float: right; background: url(img/button_search.gif) 0 0; width: 105px; height: 20px; cursor: pointer; border: none; padding:0;}
+#searchBox .search_btn.disabled {background-position: 0 20px;}
+#searchBox .example {padding-top: 5px; }
+#searchBox .example a {color: #f60; }
+#searchBox .search_input {width: 262px; height: 20px; padding-bottom:2px; padding-top:1px; float: left;}
+/* END Search Form */
+
+/* END Menu navigation */
+
+
+/*
+	Content block
+*/
+.loading {background:url("img/loading.gif") no-repeat center; position: fixed; height: 50%; width: 850px; z-index: 100;}
+
+.content_block { width: 850px; margin: 0 auto}
+.content_block div.wrapper {padding:5px 10px; border: 1px solid #ccc; background-color : #fff; min-height:400px;}
+.content_block div.wrapper h1 div {padding-bottom: 20px; border-bottom: 2px solid #9ac;}
+.content_block a.back {float: left;}
+.content_block .paging {height: 15px; color: #666; text-align: right; float: right;}
+.content_block .paging a {margin: 0 2px;}
+
+.tab { border-bottom: 1px dotted; line-height:20px; font-weight: bold;}
+.sec { background-color : #FAEBD7; }
+.list > div {border-bottom: 1px dotted; line-height:22px; font-weight: bold;}
+.list table tr td + td {width: 100%}
+
+.wt {
+	background-attachment:scroll;
+	background-image:url("img/spinner.gif");
+	background-position: 3px 3px;
+	background-repeat:no-repeat;
+	padding-left: 20px;
+}
+
+.post {border-bottom:1px dotted #CCC; background-color: white; height:140px; padding-top:5px; width:830px;}
+.post img.flogo {float: left; width: 90px; margin-right: 15px;}
+.post a {text-decoration: underline;}
+.post .title, .post .flags  {height:15px;}
+
+.post.popup {padding: 5px;}
+.post.popup {width:600px;}
+.post.popup .info table tr td div {max-width: 400px;}
+
+.post .flags {float:right; overflow:hidden; text-align:right; width:250px;}
+.post .flags img {border: 1px solid white; cursor: pointer;}
+.post .flags img:hover {border: 1px solid #F60;}
+
+.post .info {height:110px; margin-top:15px; overflow:hidden;}
+.post .info table tr td div {max-width: 600px;}
+
+.post .edit {float:right; text-align:right; margin-top: -40px}
+.post .edit a div {opacity: 0.5;}
+.post .edit a div:hover {opacity: 1;}
+
+.post .desc {float:right; margin-top:-15px; text-align:right; width:500px; height: 15px; overflow: hidden}
+
+/*  Table */
+td { color:#000; font-family:tahoma,verdana; font-size:11px; vertical-align: top; }
+
+/*  UL */
+.post .info ul {list-style:none outside none;}
+.post .info ul li {margin: 5px;}
+.post .info ul li span {font-weight:bold; margin-right:10px;}
+
+
+/** Film edit page styles */
+
+.edit-post {height:auto; margin-bottom: 10px; border: none}
+.edit-post table {width: 500px; margin-bottom: 10px;}
+.edit-post textarea {width: 100%;}
+.edit-post img.flogo {width: 120px; height: auto; border: 5px solid #ccc; margin-right: 30px;}
+.edit-post td {border-bottom: 1px dotted #ccc;}
+.edit-post .gwt-TextBox {width: 100%;}
+.edit-post .content > button {float: left;}
+
+.edit-post .add_panel {margin-top: 10px;}
+.edit-post .add_panel select {float: left; width: 200px;}
+
+.edit-post .list_panel > div {padding: 2px;}
+.edit-post .list_panel > div:hover {background-color: antiqueWhite}
+
+.edit-post .new-btn {float: right;}
+.edit-post .add-btn {float: left; margin: 2px 5px;}
+.edit-post .controls {text-align: right; margin-right: 180px;}
+
+/* END Content block */
+
+
+/* Messenger block */
+div.msg {position:fixed; z-index:100;}
+div.msg div {padding: 5px;}
+div.msg span {padding: 5px 20px; font-weight: bolder;} 
+div.msg span.msg-error {color: white; background-color: #F33;}
+div.msg span.msg-info {color: white; background-color: #6C0;}
+div.msg span.msg-warn {color: white; background-color: #F93;}
+/* End messenger */
+
+/** Overloading of GWT standard styles. */
+.list .gwt-TreeItem {cursor: pointer; font-weight: bold;}
+.list .gwt-TreeItem .gwt-InlineLabel {cursor: default;}
+.list .gwt-TreeItem .rem-item .gwt-Label {font-weight: normal;}
+.content_block div.gwt-TreeItem:hover {color: #F60;}
+.content_block div.gwt-Hyperlink:hover a {color: #F60;}
+
+.gwt-PopupPanelGlass {background-color: black; opacity: 0.1;}
+.gwt-PopupPanel {background:none repeat scroll 0 0 white; border: 2px solid #ccc; padding:3px;}
+
+/** Change mode: to remove */
+.mode1 {background:url("img/view_mode_full.jpg") no-repeat center; height: 10px; width: 10px; float: right; }
+.mode2 {background:url("img/view_mode_short.jpg") no-repeat center; height: 10px; width: 10px; float: right; }
+
+.inactive div {opacity: 0.5; cursor: pointer;}
+.inactive div:hover {opacity: 0.8;}
+
+.rem-item {clear: both;}
+.rem-item .gwt-Label {width: 90%; float: left; line-height: 18px; font-weight: bold;}
+.rem-item .rem-btn {float: right;}
+
+/** Empty box */
+div.empty {padding: 20px 0; height:400px;}
+div.empty p {color:#CCCCCC; text-align:center; font-size: 36px; font-weight: bold}
+
+/** Search results view. */
+div.search-results {background:url("img/search.gif") no-repeat 0 0; min-height: 350px;}
+div.search-results .search-list {margin-left: 50px; font-size: 14px; font-weight: bold;}
+div.search-results .search-list .gwt-Label {margin: 2px 0}
+
+/** Backgrounds: up to 10 backgrounds are allowed in system. */
+body.bg0 {background:url("../images/backgrounds/bg-0.jpg") fixed 0 0 transparent;}
+body.bg1 {background:url("../images/backgrounds/bg-1.jpg") fixed 0 0 transparent;}
+body.bg2 {background:url("../images/backgrounds/bg-2.jpg") fixed 0 0 transparent;}
+body.bg3 {background:url("../images/backgrounds/bg-3.jpg") fixed 0 0 transparent;}
+body.bg4 {background:url("../images/backgrounds/bg-4.jpg") fixed 0 0 transparent;}
+body.bg5 {background:url("../images/backgrounds/bg-5.jpg") fixed 0 0 transparent;}
+body.bg6 {background:url("../images/backgrounds/bg-6.jpg") fixed 0 0 transparent;}
+body.bg7 {background:url("../images/backgrounds/bg-7.jpg") fixed 0 0 transparent;}
+body.bg8 {background:url("../images/backgrounds/bg-8.jpg") fixed 0 0 transparent;}
+body.bg9 {background:url("../images/backgrounds/bg-9.jpg") fixed 0 0 transparent;}

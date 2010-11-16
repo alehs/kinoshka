@@ -1,0 +1,61 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:kino="urn:import:com.ast.kinoshka.frontend.gwt.client">
+
+	<g:HTMLPanel>
+		<div id="top">
+			<div class="master">
+				<div class="png">
+
+					<ul class="menu" id="ul_menu_top">
+						<li>
+							<g:Hyperlink ui:field="allFilms"><span>Все фильмы</span></g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byGenre">
+								<span>Жанр</span>
+							</g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byDirector">
+								<span>Режиссер</span>
+							</g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byActor">
+								<span>Актер</span>
+							</g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byCountry">
+								<span>Страна</span>
+							</g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byYear">
+								<span>Год</span>
+							</g:Hyperlink>
+						</li>
+						<li>
+							<g:Hyperlink ui:field="byBox">
+								<span>Коробочка</span>
+							</g:Hyperlink>
+						</li>
+					</ul>
+
+					<a href="#ALL">
+						<span class="logo" title="вся фильматека здесь!"></span>
+					</a>
+					<kino:Searcher ui:field="searcher"/>
+
+				</div>
+				<g:Anchor ui:field="add" title="добавить новый фильм"><div class="add-btn add-film"/></g:Anchor>
+				<div class="mode">
+					<g:Anchor ui:field="mode1" styleName="inactive" title="развернутый вид"><div class="mode1"/></g:Anchor>
+					<g:Anchor ui:field="mode2"><div class="mode2" title="компактный вид"/></g:Anchor>
+				</div>
+			</div>
+		</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

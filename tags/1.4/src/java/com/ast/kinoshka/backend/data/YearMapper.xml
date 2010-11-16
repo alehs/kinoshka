@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ast.kinoshka.backend.data.YearMapper">
+	<cache/>
+
+	<resultMap id="attributeMap" type="Attribute">
+		<id property="id" column="attr_id"/>
+		<result property="name" column="attr_id"/>
+	</resultMap>
+
+	<resultMap id="advancedAttributeMap" type="Attribute" extends="attributeMap">
+		<result property="itemsCount" column="items_count" javaType="Integer"/>
+	</resultMap>
+
+	<select id="getAdvancedList" resultMap="advancedAttributeMap">
+		select DISTINCT F1.FILM_YEAR as attr_id, count(*) as items_count
+		from FILMS F1
+		where F1.FILM_YEAR is not NULL
+		group by F1.FILM_YEAR
+	</select>
+
+	<select id="getList" resultMap="attributeMap">
+		select DISTINCT FILMS.FILM_YEAR as attr_id
+		from FILMS
+		where FILM_YEAR is not NULL
+		group by FILM_YEAR
+	</select>
+
+	<select id="getFilms" resultMap="filmGetMap" parameterType="Integer">
+		select F.*,
+			G.id as genre_id,
+			G.name as genre_name,
+			A.id as actor_id,
+			A.name as actor_name,
+			D.id as director_id,
+			D.name as director_name,
+			R.id as region_id,
+			R.name as region_name,
+			R.short as region_short_name
+		from FILMS F
+			left join FILM_GENRE FG on F.id = FG.FILM_ID left join GENRES G on FG.GENRE_ID = G.id
+			left join FILM_ACTOR FA on F.id = FA.FILM_ID left join ACTORS A on FA.ACTOR_ID = A.id
+			left join FILM_DIRECTOR FD on F.id = FD.FILM_ID left join DIRECTORS D on FD.DIRECTOR_ID = D.id
+			left join FILM_REGION FR on F.id = FR.FILM_ID left join REGIONS R on FR.REGION_ID = R.id
+		where F.FILM_YEAR = #{attributeId}
+	</select>
+
+</mapper>
