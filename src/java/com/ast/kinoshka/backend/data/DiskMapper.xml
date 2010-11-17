@@ -10,11 +10,11 @@
 		<result property="name" column="attr_id"/>
 	</resultMap>
 
-	<resultMap id="advancedAttributeMap" type="Attribute" extends="attributeMap">
+	<resultMap id="countAttributeMap" type="Attribute" extends="attributeMap">
 		<result property="itemsCount" column="items_count" javaType="Integer"/>
 	</resultMap>
 
-	<select id="getAdvancedList" resultMap="advancedAttributeMap">
+	<select id="getListWithCount" resultMap="countAttributeMap">
 		select DISTINCT F1.DISK as attr_id, count(*) as items_count
 		from FILMS F1
 		where F1.DISK is not NULL

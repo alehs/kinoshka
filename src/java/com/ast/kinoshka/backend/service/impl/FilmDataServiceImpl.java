@@ -107,15 +107,12 @@ public class FilmDataServiceImpl implements FilmDataService {
    * {@inheritDoc}
    */
   @Override
-  public List<Film> getFilms(int offset, int limit, int total) {
+  public List<Film> getFilms(PageConfig config) {
     List<Film> result = null;
     SqlSession session = factory.openSession();
     try {
       FilmMapper mapper = session.getMapper(FilmMapper.class);
-      // This is workaround to get
-      // film list in descending order as derby does not support both ORDER BY
-      // in subqueries and over() function and LIMIT keyword. 
-      result = mapper.getPage(new PageConfig(total - (offset + limit), total - offset + 1));
+      result = mapper.getPage(config);
     } finally {
       session.close();
     }
@@ -148,6 +145,17 @@ public class FilmDataServiceImpl implements FilmDataService {
       result = Lists.newArrayList();
     }
     return result;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public List<Film> getFilmsByAttribute(AttributeCategory attributeCategory, Integer attributeId,
+     PageConfig config) {
+    checkNotNull(attributeCategory);
+    checkNotNull(attributeId);
+    return null;
   }
 
   @Override

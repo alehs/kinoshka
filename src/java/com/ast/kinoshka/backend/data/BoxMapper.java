@@ -11,8 +11,9 @@ public interface BoxMapper extends AttributeMapper {
   public List<Attribute> getList();
 
   @Override
-  public List<Attribute> getAdvancedList();
+  public List<Attribute> getListWithCount();
 
   @Override
   List<Film> getFilms(Integer attributeId);
+
 }

@@ -17,13 +17,13 @@ public interface ActorMapper extends AttributeMapper {
 
   @Override
   List<Film> getFilms(Integer actorId);
-  
+
   @Override
   @Delete("DELETE FROM ACTORS WHERE id = #{id}")
   void delete(Integer id);
 
   @Override
-  List<Attribute> getAdvancedList();
+  List<Attribute> getListWithCount();
 
   @Override
   @Select("SELECT * FROM ACTORS ORDER BY NAME ASC")

@@ -20,12 +20,12 @@ public abstract class ServiceTestUtil {
   }
 
   public static List<Attribute> getAttributes(AttributeDataService service, AttributeCategory category) {
-    return service.getAttributes(category);
+    return service.getAttributeList(category);
   }
 
   public static List<Attribute> getAttributesFull(AttributeDataService service,
       AttributeCategory category) {
-    return service.getAttributesFullInfo(category);
+    return service.getAttributes(category);
   }
 
   public static void delete(AttributeDataService service, AttributeCategory category, Integer id) {

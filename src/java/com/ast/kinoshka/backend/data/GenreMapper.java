@@ -21,7 +21,7 @@ public interface GenreMapper extends AttributeMapper {
   List<Attribute> getList();
 
   @Override
-  List<Attribute> getAdvancedList();
+  List<Attribute> getListWithCount();
 
   @Override
   List<Film> getFilms(Integer genreId);

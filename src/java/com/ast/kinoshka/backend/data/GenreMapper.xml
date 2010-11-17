@@ -11,11 +11,11 @@
 		insert into GENRES (NAME) values (#{name})
 	</insert>
 
-	<resultMap id="advancedAttributeMap" type="Attribute">
+	<resultMap id="countAttributeMap" type="Attribute">
 		<result property="itemsCount" column="items_count" javaType="Integer"/>
 	</resultMap>
 
-	<select id="getAdvancedList" resultMap="advancedAttributeMap">
+	<select id="getListWithCount" resultMap="countAttributeMap">
 		select GENRES.*, (select count(*) from FILM_GENRE where GENRE_ID =
 		GENRES.ID) as items_count
 		from GENRES ORDER BY NAME ASC

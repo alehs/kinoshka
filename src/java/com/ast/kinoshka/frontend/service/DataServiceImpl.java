@@ -13,6 +13,7 @@ import com.ast.kinoshka.frontend.gwt.shared.DataService;
 import com.ast.kinoshka.frontend.service.util.AttributeCategoryConverter;
 import com.ast.kinoshka.frontend.service.util.AttributeDataConverter;
 import com.ast.kinoshka.frontend.service.util.FilmDataConverter;
+import com.ast.kinoshka.frontend.service.util.PagingUtil;
 import com.google.inject.Inject;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class DataServiceImpl extends BaseServiceServlet implements DataService {
   @Override
   public PagingResult getFilms(PagingConfig config) {
     int count = filmService.getFilmsCount();
-    List<Film> films = filmService.getFilms(config.getOffset(), config.getLimit(), count);
+    List<Film> films = filmService.getFilms(PagingUtil.evalDesc(config, count));
     return new PagingResult(FilmDataConverter.toModel(films), config.getOffset(), count);
   }
 
@@ -55,7 +56,7 @@ public class DataServiceImpl extends BaseServiceServlet implements DataService {
   @Override
   public ArrayList<FilmAttributeInfo> getAttributeList(Category category) {
     return AttributeDataConverter.toModel(attrService
-        .getAttributesFullInfo(AttributeCategoryConverter.fromModel(category)));
+        .getAttributes(AttributeCategoryConverter.fromModel(category)));
   }
 
   /**

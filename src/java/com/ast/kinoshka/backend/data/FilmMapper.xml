@@ -53,16 +53,32 @@
 			left join FILM_REGION FR ON F.id = FR.FILM_ID left join REGIONS R ON FR.REGION_ID = R.id
 	</sql>
 
+	<!-- Is not used -->
 	<select id="getAll" resultMap="filmGetMap">
 		<include refid="selectFilm"/>
 	</select>
 
 	<select id="getPage" resultMap="filmGetMap" parameterType="int">
-		<include refid="selectFilm"/>
-		WHERE F.ID IN (
-			SELECT T.ID FROM PAGED_FILMS T
-			WHERE T.NUM &gt; #{minEdge} AND T.NUM &lt; #{maxEdge}
-		) ORDER BY F.ID DESC
+		SELECT F.*,
+			G.id AS genre_id,
+			G.name AS genre_name,
+			A.id AS actor_id,
+			A.name AS actor_name,
+			D.id AS director_id,
+			D.name AS director_name,
+			R.id AS region_id,
+			R.name AS region_name,
+			R.short AS region_short_name
+		FROM (
+			SELECT ROW_NUMBER() OVER() AS rownum, FILMS.*
+			FROM FILMS
+		) AS F
+			LEFT JOIN FILM_GENRE FG ON F.id = FG.FILM_ID LEFT JOIN GENRES G ON FG.GENRE_ID = G.id
+			LEFT JOIN FILM_ACTOR FA ON F.id = FA.FILM_ID LEFT JOIN ACTORS A ON FA.ACTOR_ID = A.id
+			LEFT JOIN FILM_DIRECTOR FD ON F.id = FD.FILM_ID LEFT JOIN DIRECTORS D ON FD.DIRECTOR_ID = D.id
+			LEFT JOIN FILM_REGION FR ON F.id = FR.FILM_ID LEFT JOIN REGIONS R ON FR.REGION_ID = R.id
+		WHERE rownum &gt;= #{from} AND rownum &lt;= #{to}
+		ORDER BY F.ID DESC
 	</select>
 
 	<select id="getById" resultMap="filmGetMap" parameterType="Integer">

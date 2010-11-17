@@ -7,6 +7,7 @@ import static junit.framework.Assert.assertNull;
 import com.ast.kinoshka.backend.model.Attribute;
 import com.ast.kinoshka.backend.model.AttributeCategory;
 import com.ast.kinoshka.backend.model.Film;
+import com.ast.kinoshka.backend.model.PageConfig;
 import com.ast.kinoshka.testcommon.BaseServiceTest;
 import com.ast.kinoshka.testcommon.ServiceTestUtil;
 import com.google.inject.internal.Lists;
@@ -19,9 +20,9 @@ import java.util.List;
 
 /**
  * Unit tests for CoreFilmDataService.
- * 
+ *
  * @author Aleh_Stsiapanau
- * 
+ *
  */
 public class FilmDataServiceTest extends BaseServiceTest {
 
@@ -152,7 +153,7 @@ public class FilmDataServiceTest extends BaseServiceTest {
     }
     assertEquals(0, service.getFilmsCount());
   }
-  
+
 
   @Test(expected = NullPointerException.class)
   public void testGetFilmFail() {
@@ -254,42 +255,44 @@ public class FilmDataServiceTest extends BaseServiceTest {
     List<Film> newFilms = Lists.newArrayList();
 
     try {
-      List<Film> films = service.getFilms(0, 2, newFilms.size());
+      List<Film> films = service.getFilms(new PageConfig(0, 2));
       assertEquals(0, films.size());
 
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2000, 10, 0)));
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2004, 10, 0)));
       newFilms.add(service.addFilm(ServiceTestUtil.createFilm(FILM_NAME, FILM_NAME, FILM_NAME, 0, 2000, 12, 0)));
 
-      films = service.getFilms(0, 2, newFilms.size());
-      assertEquals(2, films.size());
-      assertEquals(newFilms.get(2).getId(), films.get(0).getId());
-      assertEquals(newFilms.get(1).getId(), films.get(1).getId());
+      films = service.getFilms(PageConfig.valueOf(2, 1));
+      assertEquals(0, films.size());
 
-      films = service.getFilms(1, 2, newFilms.size());
+      films = service.getFilms(PageConfig.valueOf(0, 0));
+      assertEquals(0, films.size());
+
+      films = service.getFilms(PageConfig.valueOf(3, 2));
+      assertEquals(0, films.size());
+
+      films = service.getFilms(PageConfig.valueOf(-1, 1));
+      assertEquals(1, films.size());
+      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
+
+      films = service.getFilms(PageConfig.valueOf(0, 2));
       assertEquals(2, films.size());
       assertEquals(newFilms.get(1).getId(), films.get(0).getId());
       assertEquals(newFilms.get(0).getId(), films.get(1).getId());
 
-      films = service.getFilms(1, 1, newFilms.size());
+      films = service.getFilms(PageConfig.valueOf(1, 1));
+      assertEquals(1, films.size());
+      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
+
+      films = service.getFilms(PageConfig.valueOf(2, 2));
       assertEquals(1, films.size());
       assertEquals(newFilms.get(1).getId(), films.get(0).getId());
 
-      films = service.getFilms(0, 10, newFilms.size());
+      films = service.getFilms(PageConfig.valueOf(0, 10));
       assertEquals(3, films.size());
       assertEquals(newFilms.get(2).getId(), films.get(0).getId());
       assertEquals(newFilms.get(1).getId(), films.get(1).getId());
       assertEquals(newFilms.get(0).getId(), films.get(2).getId());
-
-      films = service.getFilms(2, 2, newFilms.size());
-      assertEquals(1, films.size());
-      assertEquals(newFilms.get(0).getId(), films.get(0).getId());
-
-      films = service.getFilms(2, 0, newFilms.size());
-      assertEquals(0, films.size());
-
-      films = service.getFilms(3, 2, newFilms.size());
-      assertEquals(0, films.size());
 
     } finally {
       for (Film film : newFilms) {
@@ -329,7 +332,7 @@ public class FilmDataServiceTest extends BaseServiceTest {
 
   }
 
-  
+
   private Film insertFilm(String name, String originalName, String desc, Integer time,
       Integer year, Integer box, Integer disk) {
     return service.addFilm(ServiceTestUtil.createFilm(name, originalName, desc, time, year, box,
@@ -380,6 +383,6 @@ public class FilmDataServiceTest extends BaseServiceTest {
       filmAttrs.add(attribute);
     }
   }
-  
+
 }
 

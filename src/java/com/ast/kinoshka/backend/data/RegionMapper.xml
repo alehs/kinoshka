@@ -10,11 +10,11 @@
 		insert into REGIONS (NAME, SHORT) values (#{name}, #{param1})
 	</insert>
 
-	<resultMap id="advancedAttributeMap" type="Attribute">
+	<resultMap id="countAttributeMap" type="Attribute">
 		<result property="itemsCount" column="items_count" javaType="Integer"/>
 	</resultMap>
 
-	<select id="getAdvancedList" resultMap="advancedAttributeMap">
+	<select id="getListWithCount" resultMap="countAttributeMap">
 		select REGIONS.*, (select count(*) from FILM_REGION where REGION_ID =
 		REGIONS.ID) as items_count
 		from REGIONS ORDER BY NAME ASC
