@@ -56,5 +56,4 @@ public class PagingConfig implements IsSerializable {
     return offset;
   }
 
-  
 }

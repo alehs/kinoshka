@@ -7,8 +7,8 @@
 	<property name="mod.name" value="Kinoshka" />
 	<property name="mod.fullname" value="com.ast.kinoshka.frontend.gwt.${mod.name}" />
 
-	<property name="target" location="target" />
-	<property name="release" location="../release_${app.version}" />
+	<property name="target" location="bin" />
+	<property name="release" location="../release/build_${app.version}" />
 	<property name="src" location="src/java" />
 	<property name="test" location="src/test" />
 	
@@ -127,7 +127,7 @@
 			 onerror="continue" failOnConnectionError="false">none</sql>
 	</target>
 
-	<target name="test" depends="javac.tests, db.create" description="Run development mode tests">
+	<target name="test" depends="javac.tests" description="Run development mode tests">
 		<mkdir dir="${target}/testreports/htmlunit.dev" />
 		<junit fork="yes" printsummary="yes" haltonfailure="yes">
 			<jvmarg line="-Xmx256m" />

@@ -66,29 +66,29 @@ public class AttributeDataServiceTest extends BaseServiceTest {
     try {
       filmService.addFilm(film);
 
-      List<Attribute> list= service.getAttributes(AttributeCategory.BOX);
+      List<Attribute> list= service.getAttributeList(AttributeCategory.BOX);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributes(AttributeCategory.BOX);
+      assertEquals(0, list.size());
+      list = service.getAttributeList(AttributeCategory.YEAR);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributeList(AttributeCategory.GENRE);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.GENRE);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.GENRE);
+      list = service.getAttributeList(AttributeCategory.ACTOR);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.ACTOR);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.ACTOR);
+      list = service.getAttributeList(AttributeCategory.COUNTRY);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.COUNTRY);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.COUNTRY);
+      list = service.getAttributeList(AttributeCategory.DIRECTOR);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.DIRECTOR);
-      assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.DIRECTOR);
       assertEquals(0, list.size());
 
     } finally {
@@ -109,10 +109,10 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       filmService.addFilm(film1);
       filmService.addFilm(film2);
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.YEAR);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.YEAR);
       assertEquals(2, list.size());
 
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(2, list.size());
       assertEquals(Integer.valueOf(1), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
@@ -122,13 +122,13 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       assertEquals(Integer.valueOf(2222), list.get(1).getId());
       assertEquals(list.get(1).getId().toString(), list.get(1).getName());
 
+      list = service.getAttributeList(AttributeCategory.BOX);
+      assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributeList(AttributeCategory.DISK);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.DISK);
-      assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.DISK);
       assertEquals(0, list.size());
 
     } finally {
@@ -149,22 +149,22 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       filmService.addFilm(film1);
       filmService.addFilm(film2);
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.YEAR);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.YEAR);
       assertEquals(1, list.size());
 
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(1, list.size());
       assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
+      list = service.getAttributeList(AttributeCategory.BOX);
+      assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributeList(AttributeCategory.DISK);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.DISK);
-      assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.DISK);
       assertEquals(0, list.size());
 
     } finally {
@@ -185,22 +185,22 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       filmService.addFilm(film1);
       filmService.addFilm(film2);
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.DISK);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.DISK);
       assertEquals(1, list.size());
 
-      list = service.getAttributesFullInfo(AttributeCategory.DISK);
+      list = service.getAttributes(AttributeCategory.DISK);
       assertEquals(1, list.size());
       assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
+      list = service.getAttributeList(AttributeCategory.BOX);
+      assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributeList(AttributeCategory.YEAR);
       assertEquals(0, list.size());
       list = service.getAttributes(AttributeCategory.YEAR);
-      assertEquals(0, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
       assertEquals(0, list.size());
 
     } finally {
@@ -229,10 +229,10 @@ public class AttributeDataServiceTest extends BaseServiceTest {
         filmService.addFilm(f);
       }
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.BOX);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.BOX);
       assertEquals(2, list.size());
 
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(2, list.size());
       assertEquals(Integer.valueOf(1), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(1111), list.get(0).getId());
@@ -242,7 +242,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       assertEquals(Integer.valueOf(2222), list.get(1).getId());
       assertEquals(list.get(1).getId().toString(), list.get(1).getName());
 
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(0, list.size());
 
     } finally {
@@ -266,16 +266,16 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       filmService.addFilm(film1);
       filmService.addFilm(film2);
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.BOX);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.BOX);
       assertEquals(1, list.size());
 
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(1, list.size());
       assertEquals(Integer.valueOf(2), list.get(0).getItemsCount());
       assertEquals(Integer.valueOf(2222), list.get(0).getId());
       assertEquals(list.get(0).getId().toString(), list.get(0).getName());
 
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(0, list.size());
 
     } finally {
@@ -298,19 +298,19 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       filmService.addFilm(film1);
       filmService.addFilm(film2);
 
-      List<Attribute> list = service.getAttributes(AttributeCategory.BOX);
+      List<Attribute> list = service.getAttributeList(AttributeCategory.BOX);
       assertEquals(1, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.BOX);
+      list = service.getAttributes(AttributeCategory.BOX);
       assertEquals(1, list.size());
 
+      list = service.getAttributeList(AttributeCategory.DISK);
+      assertEquals(1, list.size());
       list = service.getAttributes(AttributeCategory.DISK);
       assertEquals(1, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.DISK);
-      assertEquals(1, list.size());
 
-      list = service.getAttributes(AttributeCategory.YEAR);
+      list = service.getAttributeList(AttributeCategory.YEAR);
       assertEquals(1, list.size());
-      list = service.getAttributesFullInfo(AttributeCategory.YEAR);
+      list = service.getAttributes(AttributeCategory.YEAR);
       assertEquals(1, list.size());
 
     } finally {
@@ -325,10 +325,10 @@ public class AttributeDataServiceTest extends BaseServiceTest {
       inserted = service.addAttribute(category, toInsert);
       assertNotNull(inserted.getId());
   
-      List<Attribute> list = service.getAttributes(category);
+      List<Attribute> list = service.getAttributeList(category);
       assertEquals(1, list.size());
   
-      list = service.getAttributesFullInfo(category);
+      list = service.getAttributes(category);
       assertEquals(1, list.size());
       for (Attribute attribute : list) {
         assertEquals(Integer.valueOf(0), attribute.getItemsCount());
@@ -336,7 +336,7 @@ public class AttributeDataServiceTest extends BaseServiceTest {
     } finally {
       if (inserted != null) {
         service.deleteAttribute(category, inserted.getId());
-        List<Attribute> list = service.getAttributes(category);
+        List<Attribute> list = service.getAttributeList(category);
         assertEquals(0, list.size());
       }
     }

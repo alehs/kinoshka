@@ -3,35 +3,37 @@ package com.ast.kinoshka.backend.model;
 /**
  * Hack: Provides parameters for iBatis mapping
  * @author Aleh_Stsiapanau
- *
  */
 public class PageConfig {
 
   private int attributeId;
-  private int minEdge;
-  private int maxEdge;
+  private int from;
+  private int to;
 
-  public PageConfig(int min, int max) {
-    this.minEdge = min;
-    this.maxEdge = max;
+  public PageConfig(int from, int to) {
+    this.from = from;
+    this.to = to;
   }
 
-  public PageConfig(int attributeId, int min, int max) {
+  public PageConfig(int attributeId, int from, int to) {
     this.attributeId = attributeId;
-    this.minEdge = min;
-    this.maxEdge = max;
+    this.from = from;
+    this.to = to;
   }
 
   public int getAttributeId() {
     return attributeId;
   }
-  public int getMaxEdge() {
-    return maxEdge;
+  public int getTo() {
+    return to;
   }
-  public int getMinEdge() {
-    return minEdge;
+  public int getFrom() {
+    return from;
   }
 
-  
+  public static PageConfig valueOf(int from, int to) {
+    return new PageConfig(from, to);
+  }
+
 }
 

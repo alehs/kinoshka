@@ -67,7 +67,7 @@ public class EditServiceImpl extends BaseServiceServlet implements EditService {
 
   @Override
   public ArrayList<FilmAttributeInfo> getAttributeDictionary(Category category) {
-    return AttributeDataConverter.toModel(attrService.getAttributes(AttributeCategoryConverter
+    return AttributeDataConverter.toModel(attrService.getAttributeList(AttributeCategoryConverter
         .fromModel(category)));
   }
 

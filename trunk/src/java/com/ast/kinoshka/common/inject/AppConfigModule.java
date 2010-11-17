@@ -1,5 +1,6 @@
 package com.ast.kinoshka.common.inject;
 
+import com.ast.kinoshka.common.util.PathUtils;
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;
 
@@ -29,9 +30,9 @@ public class AppConfigModule extends AbstractModule {
     bindConstant().annotatedWith(WebContext.class).to(webContext);
     bindConstant().annotatedWith(DbContext.class).to(dbContext);
     bindConstant().annotatedWith(Names.named("port")).to(port);
-    bindConstant().annotatedWith(Names.named("images.tmp")).to(webContext + "/" + IMAGE_TEMP_DIR);
-    bindConstant().annotatedWith(Names.named("images.covers")).to(webContext + "/" + IMAGE_COVERS_DIR);
-    bindConstant().annotatedWith(Names.named("images.bgs")).to(webContext + "/" + IMAGE_BACKGROUND_DIR);
+    bindConstant().annotatedWith(Names.named("images.tmp")).to(PathUtils.append(webContext, IMAGE_TEMP_DIR));
+    bindConstant().annotatedWith(Names.named("images.covers")).to(PathUtils.append(webContext, IMAGE_COVERS_DIR));
+    bindConstant().annotatedWith(Names.named("images.bgs")).to(PathUtils.append(webContext, IMAGE_BACKGROUND_DIR));
   }
 
 }

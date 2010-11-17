@@ -6,6 +6,7 @@ import com.ast.kinoshka.backend.common.ServiceException;
 import com.ast.kinoshka.backend.data.AttributeMapper;
 import com.ast.kinoshka.backend.model.Attribute;
 import com.ast.kinoshka.backend.model.AttributeCategory;
+import com.ast.kinoshka.backend.model.PageConfig;
 import com.ast.kinoshka.backend.service.AttributeDataService;
 import com.ast.kinoshka.backend.service.util.AttributeMapperUtil;
 import com.google.common.collect.Lists;
@@ -35,7 +36,7 @@ public class AttributeDataServiceImpl implements AttributeDataService {
    * {@inheritDoc}
    */
   @Override
-  public List<Attribute> getAttributes(AttributeCategory attributeCategory) {
+  public List<Attribute> getAttributeList(AttributeCategory attributeCategory) {
     checkNotNull(attributeCategory);
 
     List<Attribute> result = null;
@@ -47,12 +48,7 @@ public class AttributeDataServiceImpl implements AttributeDataService {
       session.close();
     }
 
-    // hack bug - returns 1 element with null id when should return none
-    if (result == null || 
-        (result.size() == 1 && result.get(0) == null)) {
-      result = Lists.newArrayList();
-    }
-    return result;
+    return skipNulls(result);
   }
 
   /**
@@ -96,24 +92,46 @@ public class AttributeDataServiceImpl implements AttributeDataService {
    * {@inheritDoc}
    */
   @Override
-  public List<Attribute> getAttributesFullInfo(AttributeCategory attributeCategory) {
+  public List<Attribute> getAttributes(AttributeCategory attributeCategory) {
     checkNotNull(attributeCategory);
 
     List<Attribute> result = null;
     SqlSession session = factory.openSession();
     try {
       AttributeMapper mapper = AttributeMapperUtil.getMapperByCategory(session, attributeCategory);
-      result = mapper.getAdvancedList();
+      result = mapper.getListWithCount();
     } finally {
       session.close();
     }
 
-    // hack bug - returns 1 element with null id when should return none
-    if (result == null || (result.size() == 1 && result.get(0).getId() == null))  {
+    return skipNulls(result);
+  }
+
+  @Override
+  public List<Attribute> getAttributesPage(AttributeCategory attributeCategory, PageConfig config) {
+    checkNotNull(attributeCategory);
+    List<Attribute> result = null;
+    SqlSession session = factory.openSession();
+    try {
+      // TODO: add getPage implementation
+      //AttributeMapper mapper = AttributeMapperUtil.getMapperByCategory(session, attributeCategory);
+      //result = mapper.getPage(config);
+    } finally {
+      session.close();
+    }
+
+    return skipNulls(result);
+  }
+
+  /*
+   * hack for bug - returns 1 element with null id when should return none
+   */
+  private List<Attribute> skipNulls(List<Attribute> result) {
+    if (result == null ||
+        (result.size() == 1 && result.get(0) == null)) {
       result = Lists.newArrayList();
     }
     return result;
   }
-
 
 }

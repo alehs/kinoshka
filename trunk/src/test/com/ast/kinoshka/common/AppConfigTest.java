@@ -11,7 +11,11 @@ import static com.ast.kinoshka.testcommon.CommonTestUtil.PARAM2;
 
 import com.ast.kinoshka.common.exception.ApplicationConfigurationException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
 
 import junit.framework.Assert;
 
@@ -21,6 +25,21 @@ import junit.framework.Assert;
  *
  */
 public class AppConfigTest {
+
+  private File webDir = new File(ARG_DB_VAL);
+  private File dbDir = new File(ARG_WEB_VAL);
+
+  @Before
+  public void setUp() {
+    webDir.mkdir();
+    dbDir.mkdir();
+  }
+
+  @After
+  public void tearDown() {
+    cleanDir(webDir);
+    cleanDir(dbDir);
+  }
 
   @Test
   public void testInit() {
@@ -43,10 +62,16 @@ public class AppConfigTest {
     Assert.assertEquals(8080, AppConfig.getInstance().getPort());
   }
 
-  @Test
+  @Test (expected = NumberFormatException.class)
   public void testWrongPort() {
     AppConfig.init(new String[] {ARG_WEB, ARG_DB, ARG_WRONG_PORT});
     Assert.assertEquals(8080, AppConfig.getInstance().getPort());
   }
 
+
+  private void cleanDir(File dir) {
+    if (dir.isDirectory() && dir.list().length == 0) {
+      dir.delete();
+    }
+  }
 }

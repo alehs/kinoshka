@@ -2,6 +2,7 @@ package com.ast.kinoshka.backend.service;
 
 import com.ast.kinoshka.backend.model.AttributeCategory;
 import com.ast.kinoshka.backend.model.Film;
+import com.ast.kinoshka.backend.model.PageConfig;
 
 import java.util.List;
 
@@ -19,17 +20,10 @@ public interface FilmDataService {
 
   /**
    * Returns page of films in descending order.
-   *
-   * @param offset page start
-   * @param limit page limit
-   * @param total
-   *          total number of films to get page from. This is workaround to get
-   *          film list in descending order as derby does not support ORDER BY
-   *          in subqueries and over() function and LIMIT keyword
-   * 
+   * @param config paging configuration
    * @return page of films
    */
-  List<Film> getFilms(int offset, int limit, int total);
+  List<Film> getFilms(PageConfig config);
 
   /**
    * Returns list of films with specified attribute.
@@ -38,6 +32,16 @@ public interface FilmDataService {
    * @return film list by specified attribute
    */
   List<Film> getFilmsByAttribute(AttributeCategory attributeCategory, Integer attributeId);
+
+  /**
+   * Returns page of films with specified attribute.
+   * @param attributeCategory film's attribute category
+   * @param attributeId film's attribute id
+   * @param config paging configuration
+   * @return films page
+   */
+  List<Film> getFilmsByAttribute(AttributeCategory attributeCategory, Integer attributeId,
+      PageConfig config);
 
   /**
    * Returns film by id.

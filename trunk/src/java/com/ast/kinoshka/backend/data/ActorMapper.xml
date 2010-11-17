@@ -10,11 +10,11 @@
 		insert into ACTORS (NAME) values (#{name})
 	</insert>
 
-	<resultMap id="advancedAttributeMap" type="Attribute">
+	<resultMap id="countAttributeMap" type="Attribute">
 		<result property="itemsCount" column="items_count" javaType="Integer"/>
 	</resultMap>
 
-	<select id="getAdvancedList" resultMap="advancedAttributeMap">
+	<select id="getListWithCount" resultMap="countAttributeMap">
 		select ACTORS.*, (select count(*) from FILM_ACTOR where ACTOR_ID =
 		ACTORS.ID) as items_count
 		from ACTORS ORDER BY NAME ASC

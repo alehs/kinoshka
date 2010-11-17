@@ -3,6 +3,7 @@ package com.ast.kinoshka.common;
 import com.ast.kinoshka.backend.inject.CoreServiceModule;
 import com.ast.kinoshka.common.exception.ApplicationConfigurationException;
 import com.ast.kinoshka.common.inject.AppConfigModule;
+import com.ast.kinoshka.common.util.Messages;
 import com.google.common.base.Preconditions;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -13,7 +14,7 @@ import java.util.Properties;
 /**
  * Processes application configuration parameters and provides them for
  * application components initialization.
- * 
+ *
  * @author Aleh_Stsiapanau
  */
 public class AppConfig {
@@ -36,7 +37,7 @@ public class AppConfig {
   private String webContext;
   private String dbContext;
   private int port;
-  //private String dbConnectionString;
+
   private Injector injector;
 
   /**
@@ -57,19 +58,13 @@ public class AppConfig {
    *          path to application DB resources
    */
   private AppConfig(Properties properties) {
-    try {
-      this.port = Integer.parseInt(properties.getProperty(PORT_PARAM, String.valueOf(DEFAULT_PORT)));
-    } catch (NumberFormatException e) {
-      this.port = DEFAULT_PORT;
-    }
-
+    this.port = Integer.parseInt(properties.getProperty(PORT_PARAM, String.valueOf(DEFAULT_PORT)));
     this.webContext = properties.getProperty(WEB_CONTEXT_PARAM, DEFAULT_WEB_CONTEXT_DIR);
     this.dbContext = properties.getProperty(DB_CONTEXT_PARAM, DEFAULT_DB_CONTEXT_DIR);
 
     checkDirectoryExists(this.webContext);
     checkDirectoryExists(this.dbContext);
 
-    //this.dbConnectionString = "jdbc:derby:" + this.dbContext + ";create=false";
     this.injector = Guice.createInjector(new AppConfigModule(this.webContext, this.dbContext, this.port),
         new CoreServiceModule());
   }
@@ -79,15 +74,13 @@ public class AppConfig {
 
     File targetDir = new File(dirPath);
     if (!targetDir.exists() || !targetDir.isDirectory()) {
-      throw new ApplicationConfigurationException("Target directory was not found: "
-          + targetDir.getPath() + ". Maby you have cpecified wrong param? " + usage());
+      throw new ApplicationConfigurationException(Messages.getText(Messages.ERROR_MISSEDDIR,
+          targetDir.getPath(), usage()));
     }
   }
 
   private static final String usage() {
-    return "\nUsage: \n\nparams:\n\t-" + DB_CONTEXT_PARAM
-        + "=<path_to_dir> - database context dir (default './db')\n\t-" + WEB_CONTEXT_PARAM
-        + "=<path_to_dir> - web context dir (default './web')\n";
+    return Messages.getText(Messages.USAGE);
   }
 
   public static AppConfig getInstance() {
@@ -97,7 +90,7 @@ public class AppConfig {
   public Injector getInjector() {
     return injector;
   }
-  
+
   /** FOR UNIT TEST ONLY */
   String getWebContext() {
     return webContext;
