@@ -38,7 +38,7 @@ ul.menu li a:hover span{color: #f60;}
 /* Search Form  */
 #searchBox {position: absolute; font-size: 10px; top: 47px; left: 408px; color:#fff;}
 #searchBox  div { width:375px; height:22px;}
-#searchBox .search_btn {float: right; background: url(img/button_search.gif) 0 0; width: 105px; height: 20px; cursor: pointer; border: none; padding:0;}
+#searchBox .search_btn {float: right; width: 105px; height: 20px; cursor: pointer; border: none; padding:0;}
 #searchBox .search_btn.disabled {background-position: 0 20px;}
 #searchBox .example {padding-top: 5px; }
 #searchBox .example a {color: #f60; }

@@ -16,6 +16,7 @@ DIV.loading {background:url("img/no-ie.gif") no-repeat center; position: absolut
 .list .gwt-TreeItem .rem-item .gwt-Label {float: left; width: 773px;}
 .list_panel .rem-item .gwt-Label {width: 93%;}
 
+.post {width: 600px;}
 .post .info {width: 720px;}
 .post.popup .info {width: 480px; margin-top: 0}
 
