@@ -1,5 +1,8 @@
 package com.ast.kinoshka.frontend.gwt.client.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ast.kinoshka.frontend.gwt.client.widget.Paging.PageChangeHandler;
 import com.ast.kinoshka.frontend.gwt.model.Category;
 import com.ast.kinoshka.frontend.gwt.model.FilmInfo;
@@ -10,12 +13,6 @@ import com.ast.kinoshka.frontend.gwt.utils.PageReceivingCallback;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.MouseDownEvent;
-import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
-import com.google.gwt.event.dom.client.MouseOverEvent;
-import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -25,9 +22,6 @@ import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Film list widget.
@@ -118,11 +112,11 @@ public class FilmListView extends AbstractContentView {
     for (FilmInfo filmInfo : data) {
       final FilmItemShort film = new FilmItemShort(filmInfo);
 
-      film.addDomHandler(new MouseDownHandler() {
+      film.addClickHandler(new ClickHandler() {
         @Override
-        public void onMouseDown(MouseDownEvent arg0) {
+        public void onClick(ClickEvent arg0) {
             final int left = film.getAbsoluteLeft() + 50;
-            final int top = film.getAbsoluteTop() - 150;
+            final int top = film.getAbsoluteTop() - 50;
 
             popup.hide();
             popup.setFilmInfoToDysplay(film.getInfo());
@@ -130,15 +124,16 @@ public class FilmListView extends AbstractContentView {
               @Override
               public void setPosition(int offsetWidth, int offsetHeight) {
                 int realTop = top;
-                if (top + offsetHeight > Window.getClientHeight() + Window.getScrollTop()) {
-                  realTop -= offsetHeight;
+                int realLeft = left;
+                if (left + offsetWidth > Window.getClientWidth()) {
+                  realLeft -= offsetWidth/2;
                 }
-                popup.setPopupPosition(left, realTop);
+                popup.setPopupPosition(realLeft, realTop);
               }
             });
             popup.show();
         }
-      }, MouseDownEvent.getType());
+      });
 
       listHolder.add(film);
     }
