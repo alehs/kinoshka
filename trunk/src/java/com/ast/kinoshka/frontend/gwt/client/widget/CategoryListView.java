@@ -35,7 +35,7 @@ public class CategoryListView extends AbstractContentView {
    * {@inheritDoc}
    */
   @Override
-  public void doLoad(final Category category, final String categoryItem) {
+  public void doLoad(final Category category,final String categoryItem) {
     listHolder.clear();
     currentCategory = category;
 

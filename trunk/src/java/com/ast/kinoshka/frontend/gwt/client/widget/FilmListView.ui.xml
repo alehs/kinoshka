@@ -9,5 +9,6 @@
 		<div class="cl"/>
 		<h1><g:Label ui:field="title"></g:Label></h1>
 		<g:FlowPanel ui:field="listHolder"></g:FlowPanel>
+		<div class="cl"/>
 	</g:HTMLPanel>
 </ui:UiBinder> 

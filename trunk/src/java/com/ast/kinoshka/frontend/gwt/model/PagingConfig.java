@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  */
 public class PagingConfig implements IsSerializable {
 
-  public static final int DEFAULT_PAGE_SIZE = 10;
+  public static final int DEFAULT_PAGE_SIZE = 15;
 
   private String sortField;
   private Integer limit;

@@ -106,4 +106,9 @@ public class Film {
   public void setCountries(List<Attribute> countries) {
     this.countries = countries;
   }
+
+  @Override
+  public String toString() {
+    return id + "#" + name;
+  }
 }

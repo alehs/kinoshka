@@ -52,6 +52,9 @@ public class FilmAttributeInfo implements IsSerializable {
 
   @Override
   public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
     if (!(obj instanceof FilmAttributeInfo)) {
       return false;
     }

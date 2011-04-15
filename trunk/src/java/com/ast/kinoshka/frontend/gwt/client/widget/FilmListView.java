@@ -8,13 +8,23 @@ import com.ast.kinoshka.frontend.gwt.model.PagingResult;
 import com.ast.kinoshka.frontend.gwt.utils.ListReceivingCallback;
 import com.ast.kinoshka.frontend.gwt.utils.PageReceivingCallback;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.InlineHyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.PopupPanel.PositionCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +41,7 @@ public class FilmListView extends AbstractContentView {
 
   private Category currentCategory;
   private String currentCategoryItem;
+  private FilmItemPopup popup;
 
   @UiField
   Paging paging;
@@ -44,6 +55,8 @@ public class FilmListView extends AbstractContentView {
   public FilmListView(HandlerManager eventBus) {
     super(eventBus);
     initWidget(uiBinder.createAndBindUi(this));
+
+    popup = new FilmItemPopup(eventBus);
 
     paging.setOnPageChangeHandler(new PageChangeHandler() {
       @Override
@@ -87,7 +100,7 @@ public class FilmListView extends AbstractContentView {
     } else {
       back.setVisible(true);
       dataService.getFilmsByCategory(currentCategory, currentCategoryItem,
-          new ListReceivingCallback<FilmInfo>(eventBus) {
+              new ListReceivingCallback<FilmInfo>(eventBus) {
           @Override
           public void processResult(ArrayList<FilmInfo> result) {
             paging.setPageConfig(0, 0);
@@ -103,8 +116,30 @@ public class FilmListView extends AbstractContentView {
    */
   private void populateList(List<FilmInfo> data) {
     for (FilmInfo filmInfo : data) {
-      FilmItem film = new FilmItem(eventBus);
-      film.setFilmInfoToDisplay(filmInfo);
+      final FilmItemShort film = new FilmItemShort(filmInfo);
+
+      film.addDomHandler(new MouseDownHandler() {
+        @Override
+        public void onMouseDown(MouseDownEvent arg0) {
+            final int left = film.getAbsoluteLeft() + 50;
+            final int top = film.getAbsoluteTop() - 150;
+
+            popup.hide();
+            popup.setFilmInfoToDysplay(film.getInfo());
+            popup.setPopupPositionAndShow(new PositionCallback() {
+              @Override
+              public void setPosition(int offsetWidth, int offsetHeight) {
+                int realTop = top;
+                if (top + offsetHeight > Window.getClientHeight() + Window.getScrollTop()) {
+                  realTop -= offsetHeight;
+                }
+                popup.setPopupPosition(left, realTop);
+              }
+            });
+            popup.show();
+        }
+      }, MouseDownEvent.getType());
+
       listHolder.add(film);
     }
   }

@@ -1,6 +1,5 @@
 package com.ast.kinoshka.backend.model;
 
-import java.util.logging.Logger;
 
 /**
  * Categories of film attributes.
@@ -8,6 +7,7 @@ import java.util.logging.Logger;
  */
 public enum AttributeCategory {
 
+  UNKNOWN,
   GENRE,
   ACTOR,
   DIRECTOR,
@@ -15,9 +15,6 @@ public enum AttributeCategory {
   YEAR,
   BOX,
   DISK;
-
-  /** Logger. */
-  private static final Logger LOG = Logger.getLogger(AttributeCategory.class.getName());
 
   /**
    * Provides save valueOf method. Returns null if nothing was found.
@@ -29,7 +26,7 @@ public enum AttributeCategory {
     try {
       result = AttributeCategory.valueOf(name.toUpperCase());
     } catch (IllegalArgumentException ex) {
-      LOG.warning("Attemp to get unknown value: " + name);
+      result = UNKNOWN;
     }
     return result;
   }

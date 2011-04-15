@@ -1,7 +1,7 @@
 package com.ast.kinoshka.backend.model;
 
 /**
- * Film attribute (like genre, actor, director and so on); 
+ * Film attribute (like genre, actor, director and so on);
  * @author Aleh_Stsiapanau
  */
 public class Attribute {
@@ -49,6 +49,9 @@ public class Attribute {
 
   @Override
   public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
     if (!(obj instanceof Attribute)) {
       return false;
     }
