@@ -35,5 +35,10 @@ public class PageConfig {
     return new PageConfig(from, to);
   }
 
+  @Override
+  public String toString() {
+    return from + ":" + to;
+  }
+
 }
 

@@ -1,9 +1,9 @@
 package com.ast.kinoshka.common;
 
 import java.util.Hashtable;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Vector;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 /**
@@ -25,7 +25,7 @@ public class Flags {
    * Processes the flags on the specified command line arguments. Returns an
    * array containing all non-flag arguments. If "--help" appears on the command
    * line, then we print a help message to stdout and exit.
-   * 
+   *
    * @param args
    *          the command line arguments
    * @return the remainder of the command line arguments after flags have been
@@ -39,7 +39,7 @@ public class Flags {
     Flags flags = new Flags();
 
     for (int i = 0; i < args.length; i++) {
-      if (args[i].startsWith("-") || args[i].startsWith("/")) {
+      if (args[i].charAt(0) == '-' || args[i].charAt(0) == '/') {
         int loc = args[i].indexOf("=");
         String key = (loc > 0) ? args[i].substring(1, loc) : args[i].substring(1);
         String value = (loc > 0) ? args[i].substring(loc + 1) : "";
@@ -80,5 +80,5 @@ public class Flags {
     }
     return props;
   }
-  
+
 }

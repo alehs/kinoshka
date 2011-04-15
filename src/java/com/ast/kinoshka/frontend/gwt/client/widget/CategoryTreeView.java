@@ -55,7 +55,7 @@ public class CategoryTreeView extends AbstractContentView {
   }
 
   @Override
-  void doLoad(Category category, String param) {
+  void doLoad(Category category, String attrinbuteId) {
     tree.clear();
     currentCategory = category;
 

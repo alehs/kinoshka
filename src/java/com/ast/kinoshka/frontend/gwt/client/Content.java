@@ -2,7 +2,6 @@ package com.ast.kinoshka.frontend.gwt.client;
 
 import com.ast.kinoshka.frontend.gwt.client.widget.AbstractContentView;
 import com.ast.kinoshka.frontend.gwt.client.widget.CategoryListView;
-import com.ast.kinoshka.frontend.gwt.client.widget.CategoryTreeView;
 import com.ast.kinoshka.frontend.gwt.client.widget.FilmEditView;
 import com.ast.kinoshka.frontend.gwt.client.widget.FilmListView;
 import com.ast.kinoshka.frontend.gwt.client.widget.SearchResultsView;
@@ -53,17 +52,17 @@ public class Content extends Composite {
    */
   public interface IContentWidget {
     /** Asks widget to load data. */
-    void load(Category category, String categoryItem);
+    void load(Category category, String attributeId);
     /** Sets widget caption. */
     void setWidgetTitle(String title);
     /** Force view reloading next time it will be asked. */
     void makeDirty();
   }
 
-  private ViewMode viewMode = ViewMode.SIMPLE;
+  private ViewMode viewMode = ViewMode.FULL;
   private GwtEvent<?> lastEvent = new CategoryChangeEvent(Category.ALL);
 
-  AbstractContentView categoryList, categoryTree, filmsList, searchResults;
+  AbstractContentView categoryList, filmsList, searchResults;
   FilmEditView filmEdit;
 
   @UiField
@@ -83,7 +82,7 @@ public class Content extends Composite {
     this();
 
     filmsList = new FilmListView(eventBus);
-    categoryTree = new CategoryTreeView(eventBus);
+    categoryList = new CategoryListView(eventBus);
     searchResults = new SearchResultsView(eventBus);
 
     setBody(filmsList); // set default body content
@@ -97,9 +96,6 @@ public class Content extends Composite {
         if (event.getCategory() == Category.ALL) {
           filmsList.load(Category.ALL, null);
           setBody(filmsList);
-        } else if (viewMode == ViewMode.SIMPLE) {
-          categoryTree.load(event.getCategory(), null);
-          setBody(categoryTree);
         } else {
           categoryList.load(event.getCategory(), null);
           setBody(categoryList);

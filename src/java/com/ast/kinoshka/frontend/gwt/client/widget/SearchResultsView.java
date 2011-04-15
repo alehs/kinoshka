@@ -59,7 +59,7 @@ public class SearchResultsView extends AbstractContentView {
    */
   private void populateList(List<FilmInfo> data) {
     for (FilmInfo filmInfo : data) {
-      final FilmItemShort film = new FilmItemShort(filmInfo);
+      final SearchResultItem film = new SearchResultItem(filmInfo);
       listHolder.add(film);
       film.getLabel().addMouseOverHandler(new MouseOverHandler() {
         @Override

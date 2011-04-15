@@ -41,7 +41,7 @@ public final class PathUtils {
   }
 
   private static boolean opened(final String path) {
-    return path.startsWith("/") || path.startsWith("\\");
+    return path.charAt(0) == '/' || path.charAt(0) == '\\';
   }
 
 }
